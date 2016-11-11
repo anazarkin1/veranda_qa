@@ -64,3 +64,41 @@ Student or Instructor can access their settings page after they are logged into 
 ## Question page as an instructor
 On a particular question page, an instructor can endorse a question or an answer by clicking 'Endorse' button next to them. Instructor  can remove any question or an answer by clicking 'Remove' button next to them. Instructor can mark question as answered by clicking 'Mark as answered' button next to the question. Instructor can pin the question by clicking 'Pin' button next to the question.
 
+# Mockups
+## Homepage
+![Homepage](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/homepage.jpg "Homepage")
+
+## Sign up as instructor
+![Sign up as an instructor](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/sign%20up%20instructor.jpg "Sign up as instructor")
+    
+## Sign up as student 
+![Sign up as student](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/sign%20up%20student.jpg "Sign up as student")
+    
+## Login
+![Login](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/login.jpg "Login")
+    
+## Instructor Dashboard
+![Instructor Dashboard](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/instructor%20dashboard.jpg "Instructor Dashboard")
+    
+## Create a course
+![Create a course](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/create%20a%20course.jpg "Create a course")
+    
+## Student Dashboard
+![Student Dashboard](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/student%20dashboard.jpg "Student Dashboard")
+    
+## Course Dashboard
+![Course Dashboard](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/course%20dashboard.jpg "Course Dashboard")
+
+## Ask a question form
+![Question form](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/ask%20a%20question.jpg "Ask as question form")
+
+## Answers view
+![Answers view](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/answers.jpg "Answers view")
+
+## Profile settings
+![Profile settings](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/settings.jpg "Profile settings")
+
+## Inline moderation components
+![inline moderation components](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/inline%20moderation.jpg "Inline moderation components")
+    
+    
