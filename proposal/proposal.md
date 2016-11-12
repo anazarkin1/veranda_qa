@@ -1,104 +1,86 @@
 # An Open Course Discussion Platform
 
+Our discussion platform, Veranda, in its most basic form, provides a Question & Answer interface for students, grouped by courses. Each "course" is facilitated by an "Instructor" who ultimately possesses administrative rights over the individual course.
 
-Our platform [NAME], in its most basic form, provides a Question & Answer interface for students,grouped by courses. 
-Each "course" is facilitated by an "Instructor" who ultimately possesses administrative rights over the individual course.
+Students can create new threads by asking a Question. Questions are automatically tagged according to their content. Once a question is posted, other students in the course can submit Answers. Each Answer is listed individually. Students can further discuss individual answers (or even the original question to ask clarification)
+using the comments for said question or answer. Answers can be "upvoted" by other students. Both Questions and Answers can be flagged to notify the Instructor that his/her attention is required. Both Questions & Answers are capable of rich formatting.
 
+In addition to the Q&A component of the platform, Instructors can post bulletins and course documents accessible to all students enrolled in the course. Students can also privately message the Instructor with questions and concerns.
 
-Students can create new threads by asking a Question.
-Questions are automatically tagged according to their content. 
-Once a question is posted, other students in the course can submit Answers. 
-Each Answer is listed individually. 
-Students can further discuss individual answers (or even the original question to ask clarification) 
-using the comments for said question or answer. Answers can be "upvoted" by other students.
-Both Questions and Answers can be flagged to notify  the Instructor that his/her attention is required.
-Both Questions & Answers are capable of rich formatting.
+Our platform essentially takes the best features of Piazza, StackOverflow, and Reddit - all platforms which have been proven to work on their own, and yet which brought together, go above and beyond a simple course discussion platform.
 
+## Target Users
 
-In addition to the Q&A component of the platform, 
-Instructors can post bulletins and course documents accessible to all students enrolled in the course.
-Students can also privately message the Instructor with questions and concerns.
+Our application is perfect for the facilitation of class discussions for high school and university students. The instructor configures a course and then provides his/her students with a private link, thus keeping the control of the discussion platform in the hands of the instructor.
 
+## Detailed User Interactions
 
-Our platform essentially takes the best features of Piazza, StackOverflow, and Reddit, 
-all platforms which have been proven to work on their own, and yet which brought together,
-go above and beyond a simple course discussion platform.
+###  Register as an Instructor
+An instructor can register on the website by clicking the "Register as an instructor" link on the homepage. The Instructor enters all the course information and clicks "Register course". After successfully registering a course, he/she would get a private registration link which can be shared with the students so that they can enroll.
 
+### Register as a Student
+A student would receive a registration link from their instructor to register for a course. The registration link would then take them to the login page.
 
-# Target Users
+### Student Dashboard
+After logging in, the student would be taken to the overall dashboard where they can view amalgamated updates from all their courses. This dashboard has a list of bulletins for each of the courses and a list of new questions for each course. The student can then click on a question to go directly to the page for this question. A link to each course dashboard page is also available to access more specific dashboards.
 
-Our application is perfect for the facilitation of class discussions for high school and university students. 
-The instructor configures a course, provides his/her students with a private link.
+### Instructor Dashboard
+After logging in, the instructor would see a list of flagged questions/answers/comments that need to be moderated and a list of unanswered questions for all courses which he/she facilitates. Clicking on an individual question, would take the instructor to the question page for said question.
 
-# Detailed user interactions
+### Course Dashboard
+Students can access the course dashboard by clicking on the course in the list of their courses (on the overall dashboard) or by clicking on a particular question. The course dashboard consists of a question page and a list of questions on the side. Students can toggle between questions by clicking on a question in the question list. At any time, the student can switch courses by clicking "Change Course" in the top navigation bar. Students can ask questions by clicking Ask Question, which would take them to the New Question page.
 
-##  Register as an instructor
-An instructor can register on the website by clicking "Register as an instructor" link on home page. 
-Instructor enters all course information and clicks "Register course". After successfully regestering a course, they would 
-get a registration link that will be used by students to register for this course.
+### Create a Question
+The Create Question view contains a component for entering the question itself (a one-liner) and another component for more detail using a rich text editor (most likely Markdown based). The student can discard the new question by clicking 'Cancel' or submit the question by clicking 'Submit'. Students can edit their question by clicking the 'Edit' button next to the question (after it has been submitted).
 
-## Register as a student
-A student would receive a registration link from their instructor to register for a course. Registration link would take them to login page.
+### Answering a Question
+Students and Instructors can answer questions by going to the question page and creating an answer by clicking the 'Reply' button. This would show a new component on the page that contain Rich Text functionality for entering text. The student or instructor can discard their answer at any time by clicking 'Cancel' or submit their answer by clicking 'Submit'. Students can edit their answers by clicking the 'Edit' button next to their answer.
 
-## Student dashboard
-After login in, student would be taken to the overall dashboard where they can view updates on their courses. This dashboard has a list of bulletins for each of the courses and a list of new questions for each course. Student can click on a question to go directly to the page for this question. Also Dashboard has a list of courses that students is subscribed to.
+### Adding Comments to an Answer
+Students and Instructors can add comments to a particular answer by going to the Question page, and clicking 'Add Comment' below a particular answer. This would show them a textbox where they can enter a brief comment, asking for clarification or to make a point which does not warrant a full answer. They can discard their comment by clicking 'Cancel' or submit their comment by clicking 'Submit'.
 
-## Instructor dashboard
-After login in, an instructor would see a list of flagged questions that need to be moderated and a list of unasnwered questions for this course. Clicking on each of them would take instructor to the Question page.
+### Settings
+Students and Instructors can access their settings page after they are logged into the website by clicking 'Settings' in the top navigation bar. They can modify their notification settings by going to the 'notification' tab, add or remove courses by clicking 'Add/Remove course' tab, adjust security settings by clicking the 'Security' tab or change general account settings by clicking on the 'Account' tab.
 
-## Course dashboard
-Student can access course dashboard by clicking on the course in the list of their courses or clicking on a particular question. Course dashboard consists of question page and a list of questions on the side. Student can change into a different question by clicking on a question in the list of questions. Student can change into a different course dashboard by clicking 'Change course' button in the menu and choosing course from the list of courses. Student can create a new question by clicking Ask Question button, which would take them to New Question page.
+### Question Page as an Instructor
+On a particular question page, an instructor can endorse a question or an answer by clicking the 'Endorse' button next to it. The Instructor can remove any question or an answer by clicking 'Remove'. Instructors can mark questions as answered by clicking 'Mark as Answered' next to the question. Instructors can also pin the question by clicking the 'Pin' button next to the question. These features, and several others, make up the inline-moderator abilities of the Instructor.
 
-## Create a Question
-Create question contains component for entering rich text. Student can discard new question by clicking 'Cancel' or submit question by clicking 'Submit'. Students can edit their question by clicking 'Edit' button next to the question.
+## Mockups
 
-## Answering a Question
-Student or Instructor can answer a question by going to the question page and creating an answer by clicking 'Reply' button. This would show a new component on the page that contain Rich Text functionallity for entering text. Student or Instructor can discard their answer by clicking 'Cancel' or submit their answer by clicking 'Submit'. Students can edit their answers by clicking 'Edit' button next to their answer.
+> These extremely rough "mockups" are more so intended as a means of conveying the project (and provide visuals for the above text), rather than to be used as strict guidelines for actual implementation and design.
 
-## Adding comments to an Answer
-Student or Instructor can add comment to a particular answer by going to the Question page, clicking 'Add comment' button next to a particular answer. This would show them a component with Rich Text functionallity for entering their comment. They can discard their comment by clicking 'Cancel' or submit their comment by clicking 'Submit'.
-
-## Settings page
-Student or Instructor can access their settings page after they are logged into the website by clicking 'Settings' button on the menu. They can modify their notification settings by going to the 'notification' tab, add or remove courses by clicking 'Add/Remove course' tab, security settings by clicking 'Security' tab or general account settings by clicking on 'Account' tab.
-
-## Question page as an instructor
-On a particular question page, an instructor can endorse a question or an answer by clicking 'Endorse' button next to them. Instructor  can remove any question or an answer by clicking 'Remove' button next to them. Instructor can mark question as answered by clicking 'Mark as answered' button next to the question. Instructor can pin the question by clicking 'Pin' button next to the question.
-
-# Mockups
-## Homepage
-![Homepage](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/homepage.jpg "Homepage")
+## Homepage (non-registered users)
+![Homepage](mockups/homepage.jpg "Homepage")
 
 ## Sign up as instructor
-![Sign up as an instructor](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/sign%20up%20instructor.jpg "Sign up as instructor")
-    
-## Sign up as student 
-![Sign up as student](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/sign%20up%20student.jpg "Sign up as student")
-    
+![Sign up as an instructor](mockups/sign%20up%20instructor.jpg "Sign up as instructor")
+
+## Sign up as student
+![Sign up as student](mockups/sign%20up%20student.jpg "Sign up as student")
+
 ## Login
-![Login](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/login.jpg "Login")
-    
+![Login](mockups/login.jpg "Login")
+
 ## Instructor Dashboard
-![Instructor Dashboard](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/instructor%20dashboard.jpg "Instructor Dashboard")
-    
+![Instructor Dashboard](mockups/instructor%20dashboard.jpg "Instructor Dashboard")
+
 ## Create a course
-![Create a course](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/create%20a%20course.jpg "Create a course")
-    
+![Create a course](mockups/create%20a%20course.jpg "Create a course")
+
 ## Student Dashboard
-![Student Dashboard](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/student%20dashboard.jpg "Student Dashboard")
-    
+![Student Dashboard](mockups/student%20dashboard.jpg "Student Dashboard")
+
 ## Course Dashboard
-![Course Dashboard](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/course%20dashboard.jpg "Course Dashboard")
+![Course Dashboard](mockups/course%20dashboard.jpg "Course Dashboard")
 
 ## Ask a question form
-![Question form](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/ask%20a%20question.jpg "Ask as question form")
+![Question form](mockups/ask%20a%20question.jpg "Ask as question form")
 
 ## Answers view
-![Answers view](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/answers.jpg "Answers view")
+![Answers view](mockups/answers.jpg "Answers view")
 
 ## Profile settings
-![Profile settings](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/settings.jpg "Profile settings")
+![Profile settings](mockups/settings.jpg "Profile settings")
 
 ## Inline moderation components
-![inline moderation components](https://github.com/CSC309-Fall-2016/group12/raw/master/proposal/mockups/inline%20moderation.jpg "Inline moderation components")
-    
-    
+![inline moderation components](mockups/inline%20moderation.jpg "Inline moderation components")
