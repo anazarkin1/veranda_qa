@@ -1,0 +1,11 @@
+The idea is great! The plan looks good to me. I can understand the functionalities and steps easily.
+
+Be clear about how to data is going to be stored, retrieved, what the API looks like before actually writing the code is helpful.
+
+Since a full implementation needs a lot of work, I suggest you start with student first, because I think the instructor part involves much stuff. Implement register/login/logout, dashboard etc. first; then the forum-like thing, then the instructor part. Get one part done and move to the next part.
+
+Also, in terms of functionality detail, I suggest that you should not implement flagging and rich formatting right away when working on the forum. Defer it.
+
+Overall I think your plan is great.
+
+- Shen
