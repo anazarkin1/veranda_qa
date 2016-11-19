@@ -1,0 +1,14 @@
+# app specific
+dist/css/*
+dist/js/*
+
+.tmp
+node_modules
+
+*.pyc
+
+# OS generated
+Thumbs.db
+.DS_Store
+.Spotlight-V100
+.Trashes
