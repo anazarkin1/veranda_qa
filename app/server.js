@@ -1,10 +1,8 @@
+var constants = require('./server/constants');
 var express = require('express');
 var http = require('http');
 var path = require('path');
-
 var ejs = require('ejs');
-
-const PORT = 3000;
 
 var app = express();
 app.use('/css', express.static(path.join(__dirname, 'dist', 'css')));
@@ -16,12 +14,8 @@ app.set('views', path.join(__dirname, 'src/views'));
 var httpServer = http.Server(app);
 
 /* Routes */
+require('./server/routes')(app);
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
-
-httpServer.listen(PORT, () => {
-    console.log(`Starting server on port: ${PORT}`);
+httpServer.listen(constants.PORT, () => {
+    console.log(`Starting server on port: ${constants.PORT}`);
 });
