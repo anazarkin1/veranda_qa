@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class App extends Component {
+import ViewContainer from '../ViewContainer';
+
+class Homepage extends Component {
 	constructor() {
 		super();
-		
+
 		this.state = {};
 	}
-	
+
 	render() {
 		return (
 			<div>{'Welcome'}</div>
@@ -17,7 +19,7 @@ class App extends Component {
 
 veranda.onReady(() => {
 	ReactDOM.render(
-		<App />,
+		<ViewContainer><Homepage /></ViewContainer>,
 		document.getElementById('root')
 	);
 });
