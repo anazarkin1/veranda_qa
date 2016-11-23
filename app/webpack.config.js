@@ -1,11 +1,17 @@
+var glob = require('glob');
+var path = require('path');
+
+var views = {};
+var viewFiles = glob.sync('./src/js/views/*.js');
+for (let view of viewFiles) {
+    views['views/' + path.basename(view, '.js')] = view;
+}
+
 module.exports = {
-    entry: {
+    entry: Object.assign({
         'vendor': ['moment'],
-        'veranda': './src/js/veranda.js',
-		
-		/* Views */
-		'views/index': './src/js/views/index.js'
-    },
+        'veranda': './src/js/veranda.js'
+    }, views),
     output: {
         path: './dist/js',
         filename: '[name].js'
