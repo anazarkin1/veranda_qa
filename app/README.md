@@ -24,6 +24,19 @@ To build all:
 $ npm run build
 ```
 
+### Test
+
+To validate code before committing:
+```
+$ npm test
+```
+
+#### Testing a Specific View
+If a route has not been created for a view which you would like to test, you can use the wildcard debug endpoint:
+```
+http://server:PORT/debug/PATH_TO_VIEW_EJS
+```
+
 ### Start
 
 To start nodemon:
