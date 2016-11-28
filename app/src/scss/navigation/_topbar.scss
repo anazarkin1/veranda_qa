@@ -13,4 +13,25 @@ nav.top-navigation-bar {
         top: 50%;
         transform: translateY(-50%);
     }
+
+    .navigation-btn {
+        display: inline-block;
+        float: right;
+        border: 1px solid $blue1;
+        border-radius: 2px;
+        margin: 0 10px;
+
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+
+        padding: 4px 12px;
+
+        @extend .clickable;
+
+        &:hover, &:active {
+            background: $blue2;
+            color: $purple1;
+        }
+    }
 }
