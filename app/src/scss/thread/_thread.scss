@@ -1,1 +1,10 @@
 /* Thread */
+
+.thread {
+    display: flex;
+    flex-direction: column;
+    margin: 0px auto;
+    width: 75%;
+    max-width: 825px;
+    padding-top: 10px;
+}

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 
+import Question from './Question';
+import AnswerList from './AnswerList';
+
 export default class Thread extends Component {
 	constructor() {
 		super();
@@ -10,7 +13,8 @@ export default class Thread extends Component {
 	render() {
 		return (
 			<div className='thread'>
-				Thread {this.props.id}
+				<Question id={this.props.id} />
+				<AnswerList id={this.props.id} />
 			</div>
 		);
 	}
