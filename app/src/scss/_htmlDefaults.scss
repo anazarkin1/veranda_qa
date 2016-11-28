@@ -14,3 +14,9 @@ html, body {
 
     font-size: 1em;
 }
+
+#root {
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+}

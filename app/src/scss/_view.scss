@@ -1,0 +1,16 @@
+/* View */
+
+.view-container {
+    flex-grow: 1;
+    width: 100%;
+    min-height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    > .view {
+        flex-grow: 1;
+        min-height: calc(100% - #{$topbar_height});
+        display: flex;
+    }
+}

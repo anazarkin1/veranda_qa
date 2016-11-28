@@ -9,17 +9,32 @@ class CourseDashboard extends Component {
 	constructor() {
 		super();
 
-		this.state = {};
+		this.state = {
+			activeThread: 1
+		};
+
+		this.changeThread = this.changeThread.bind(this);
+	}
+
+	changeThread(id) {
+		this.setState({
+			activeThread: id
+		});
 	}
 
 	render() {
 		return (
-			<div className='dashboard'>
+			<div className='dashboard layout layout-nav-content'>
 				<div className='left'>
-					<QuestionListNavigation />
+					<QuestionListNavigation
+						onItemClick={this.changeThread}
+						activeThread={this.state.activeThread}
+					/>
 				</div>
 				<div className='right'>
-					<Thread />
+					<Thread
+						id={this.state.activeThread}
+					/>
 				</div>
 			</div>
 		);

@@ -1,0 +1,16 @@
+/* Top Navigation Bar */
+
+nav.top-navigation-bar {
+    width: 100%;
+    height: $topbar_height;
+    background: $purple1;
+    color: #fff;
+    text-align: center;
+
+    > span {
+        display: inline-block;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}

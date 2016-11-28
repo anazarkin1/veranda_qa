@@ -10,7 +10,7 @@ export default class TopNavigationBar extends Component {
 	render() {
 		return (
 			<nav className='top-navigation-bar'>
-				Top Navigation Bar
+				<span>Veranda: Top Navigation Bar</span>
 			</nav>
 		);
 	}

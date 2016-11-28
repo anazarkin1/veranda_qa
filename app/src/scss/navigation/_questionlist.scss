@@ -1,0 +1,31 @@
+/* Question List Navigation */
+
+.question-list-navigation {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    background: $purple2;
+
+    .question-list-item {
+        padding: 0px 7px;
+        @extend .clickable;
+        box-shadow: 1px 1px 1px $grey1;
+
+        .title {
+            margin: 10px 0 6px 0;
+            font-size: 0.95em;
+        }
+
+        .date {
+            font-size: 0.665em;
+            float: right;
+            margin-bottom: 3px;
+        }
+
+        &:hover, &.active {
+            background: $blue2;
+        }
+    }
+}

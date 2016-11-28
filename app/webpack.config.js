@@ -9,7 +9,6 @@ for (let view of viewFiles) {
 
 module.exports = {
     entry: Object.assign({
-        'vendor': ['moment'],
         'veranda': './src/js/veranda.js'
     }, views),
     output: {

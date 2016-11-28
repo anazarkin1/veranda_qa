@@ -1,0 +1,23 @@
+/* Layouts */
+
+.layout {
+    display: flex;
+    flex-grow: 1;
+
+    &.layout-nav-content {
+        flex-direction: row;
+
+        > .left {
+            width: 200px;
+        }
+
+        > .right {
+            flex-grow: 1;
+        }
+
+        > .left, > .right {
+            display: flex;
+        }
+    }
+
+}
