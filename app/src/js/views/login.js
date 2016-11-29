@@ -2,21 +2,18 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import ViewContainer from '../ViewContainer';
-import Login_box from '../components/Login_box';
 
 class Login extends Component {
 	constructor() {
 		super();
 
-
+		this.state = { };
 	}
-
-
 
 	render() {
 		return (
-			<div className='login box'>
-				{'LOGIN'}
+			<div className='login'>
+				Login
 			</div>
 		);
 	}
