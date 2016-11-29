@@ -19,16 +19,19 @@
 @import 'font-awesome/scss/font-awesome';
 
 /* View */
-@import '_view';
+@import 'view';
 
 /* Layout */
-@import '_layouts';
+@import 'layouts';
+
+/* Forms */
+@import 'forms';
 
 /* Navigation */
 @import 'navigation/_topbar';
 @import 'navigation/_questionlist';
 
 /* Thread */
-@import 'thread/_thread';
-@import 'thread/_question';
-@import 'thread/_answer';
+@import 'thread/thread';
+@import 'thread/question';
+@import 'thread/answer';

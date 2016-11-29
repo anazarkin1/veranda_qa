@@ -1,0 +1,32 @@
+.search-container {
+    display: inline;
+
+    .search {
+        position: absolute;
+        background: $black;
+        min-width: 300px;
+        max-width: 400px;
+        right: 0;
+        opacity: 0;
+        top: $topbar_height;
+        max-height: 0px;
+        overflow: hidden;
+        border: 1px solid $black;
+        border-radius: 3px;
+        z-index: 990;
+
+        @media (max-width: $breakpoint_mobile) {
+            max-width: 100%;
+            min-width: 100%;
+            width: 100%;
+        }
+
+        &.open {
+            max-height: 100px;
+            overflow-y: auto;
+            opacity: 1;
+        }
+
+        transition: max-height 0.25s ease-out, opacity 0.30s ease-out;
+    }
+}

@@ -63,63 +63,7 @@ header.top-navigation-bar {
         }
     }
 
-    .drawer {
-        position: absolute;
-        background: $black;
-        min-width: 300px;
-        max-width: 400px;
-        left: 0;
-        opacity: 0;
-        top: $topbar_height;
-        max-height: 0px;
-        overflow: hidden;
-        border: 1px solid $black;
-        border-bottom-right-radius: 2px;
-        z-index: 999;
+    @import 'drawer';
 
-        @media (max-width: $breakpoint_mobile) {
-            max-width: 100%;
-            min-width: 100%;
-            width: 100%;
-
-            ul, li {
-                width: 100%;
-            }
-        }
-
-        &.open {
-            max-height: 500px;
-            overflow-y: auto;
-            opacity: 1;
-        }
-
-        transition: max-height 0.25s ease-out, opacity 0.30s ease-out;
-
-        ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-
-            li {
-                padding: 0;
-                margin: 0;
-                display: block;
-                padding: 10px 12px;
-                color: #fff;
-                text-align: left;
-                font-size: 0.8em;
-                border-top: 1px solid $blue1;
-
-                @extend .clickable;
-
-                &:hover, &:active {
-                    background: $black2;
-                }
-            }
-
-            li:last-child {
-                border-bottom: 1px solid $blue1;
-            }
-        }
-    }
+    @import 'search';
 }
