@@ -6,7 +6,7 @@ module.exports = Object.freeze({
     DB: {
         HOST: 'localhost',
         USER: 'root',
-        PASSWORD: '',
+        PASSWORD: 'root',
         NAME: 'veranda'
     }
 });
