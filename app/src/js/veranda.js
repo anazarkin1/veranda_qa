@@ -26,5 +26,15 @@ veranda.system = {
 
 // Alias
 veranda.onReady = veranda.system.onReady;
-
 document.addEventListener('readystatechange', veranda.system._onReady.func);
+
+veranda.redirect = url => {
+    window.location.href = url;
+};
+
+veranda.account = {
+    authenticated: true,
+    logout: () => {
+        veranda.account.authenticated = false;
+    }
+};

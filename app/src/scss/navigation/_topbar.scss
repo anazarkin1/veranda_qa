@@ -1,22 +1,42 @@
 /* Top Navigation Bar */
 
-nav.top-navigation-bar {
+header.top-navigation-bar {
     width: 100%;
     height: $topbar_height;
-    background: $purple1;
+    background: $black;
     color: #fff;
     text-align: center;
 
-    > span {
+    > h1 {
         display: inline-block;
         position: relative;
         top: 50%;
         transform: translateY(-50%);
+        font-size: 1.2em;
+        padding: 0;
+        margin: 0;
+        letter-spacing: 0.03em;
+
+        @media (max-width: $breakpoint_mobile_large) {
+            max-width: 330px;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        @media (max-width: $breakpoint_mobile) {
+            max-width: 200px;
+        }
+
+        @media (max-width: $breakpoint_tiny) {
+            max-width: 100px;
+        }
+
+        @extend .clickable;
     }
 
     .navigation-btn {
         display: inline-block;
-        float: right;
         border: 1px solid $blue1;
         border-radius: 2px;
         margin: 0 10px;
@@ -29,9 +49,77 @@ nav.top-navigation-bar {
 
         @extend .clickable;
 
+        &.right {
+            float: right;
+        }
+
+        &.left {
+            float: left;
+        }
+
         &:hover, &:active {
             background: $blue2;
             color: $purple1;
+        }
+    }
+
+    .drawer {
+        position: absolute;
+        background: $black;
+        min-width: 300px;
+        max-width: 400px;
+        left: 0;
+        opacity: 0;
+        top: $topbar_height;
+        max-height: 0px;
+        overflow: hidden;
+        border: 1px solid $black;
+        border-bottom-right-radius: 2px;
+        z-index: 999;
+
+        @media (max-width: $breakpoint_mobile) {
+            max-width: 100%;
+            min-width: 100%;
+            width: 100%;
+
+            ul, li {
+                width: 100%;
+            }
+        }
+
+        &.open {
+            max-height: 500px;
+            overflow-y: auto;
+            opacity: 1;
+        }
+
+        transition: max-height 0.25s ease-out, opacity 0.30s ease-out;
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 0;
+                margin: 0;
+                display: block;
+                padding: 10px 12px;
+                color: #fff;
+                text-align: left;
+                font-size: 0.8em;
+                border-top: 1px solid $blue1;
+
+                @extend .clickable;
+
+                &:hover, &:active {
+                    background: $black2;
+                }
+            }
+
+            li:last-child {
+                border-bottom: 1px solid $blue1;
+            }
         }
     }
 }

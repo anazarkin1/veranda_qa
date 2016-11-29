@@ -15,6 +15,10 @@ html, body {
     font-size: 1em;
 }
 
+body {
+    position: relative;
+}
+
 #root {
     width: 100%;
     min-height: 100%;
