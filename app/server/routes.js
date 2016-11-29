@@ -7,6 +7,10 @@ module.exports = function(app) {
         res.render('index');
     });
 
+    app.get('/login', (req, res) => {
+		res.render('login');
+	});
+
     if (constants.DEBUG) {
         app.get('/debug/*', (req, res) => {
             res.render(req.params[0]);
