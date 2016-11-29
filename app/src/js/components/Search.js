@@ -8,7 +8,7 @@ export default class Search extends Component {
 	constructor() {
 		super();
 
-        this.state = { open: true };
+        this.state = { open: false };
 
         this.toggle = this.toggle.bind(this);
 		this.close = this.close.bind(this);
