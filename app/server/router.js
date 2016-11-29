@@ -2,26 +2,22 @@
 
 var constants = require('./constants');
 
-// Data Access Object
-var dao = require('./dao');
+var Router = (app, dao) => {
+    // Models
+    var Models = require('./models')(dao);
 
-// Models
-var Models = require('./models')(dao);
+    // Router MiddleWare
+    var MW = {
+        authentication: (req, res, next) => {
+            if (req.session.authenticated) {
+                return next();
+            }
 
-// MiddleWare
-var MW = {
-    authentication: (req, res, next) => {
-        if (req.session.authenticated) {
-            return next();
+            // Remember which page the user wanted to access.
+            req.session.login_to = req.url;
+            res.redirect('/login');
         }
-
-        // Remember which page the user wanted to access.
-        req.session.login_to = req.url;
-        res.redirect('/login');
-    }
-};
-
-var Router = (app) => {
+    };
 
     app.get('/', (req, res) => {
         res.render('index');
@@ -63,7 +59,6 @@ var Router = (app) => {
             });
         }
     });
-
 };
 
 module.exports = Router;

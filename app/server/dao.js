@@ -1,6 +1,6 @@
 /* Data Access Object */
 
-var constants = require('./constants');
+var DB = require('./constants').DB;
 var mysql = require('mysql');
 
 var dao = {
