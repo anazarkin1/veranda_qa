@@ -1,15 +1,95 @@
 /* LoginBox */
 
-.loginBox {
-    display: block;
-    flex-direction: column;
-    margin: 0px auto;
-    width: 75%;
-    max-width: 825px;
-    padding-top: 10px;
-}
+.login {
+  position: relative;
 
-.loginTitle {
-  font-size: 20px;
-  color: #0000ff;
+  .loginBoxContainer {
+    position: fixed;
+    vertical-align: middle;
+    display: block;
+    border-style: solid;
+    padding: 10%;
+    padding-bottom: 20%;
+    top:25%;
+    left: 20%;
+
+    .loginTitle {
+      // max-width:50%;
+      font-size: 200%;
+      color: black;
+      font-weight: bold;
+      padding-bottom: 20%;
+    }
+
+    .loginBox {
+      position:relative;
+      display: block;
+      flex-direction: column;
+      margin: auto;
+      width: 75%;
+      max-width: 825px;
+    }
+      #ID {
+        float:left;
+        position: relative;
+        display: inline;
+      }
+
+      #IDBox {
+        float:right;
+        position: relative;
+        display: inline;
+        border-style: solid;
+        width: 75%;
+        max-width: 825px;
+      }
+
+      #password {
+        float:left;
+        position: relative;
+        display: inline;
+      }
+
+      #passwordBox {
+        float:right;
+        position: relative;
+        display: inline;
+        border-style: solid;
+        width: 75%;
+        max-width: 825px;
+      }
+
+      .EnterButton {
+        display:block;
+        background-color: #228B22;
+        position: absolute;
+        border-style: solid;
+        border-radius: 25%;
+        border-color: beige;
+        left: 1%;
+        width: 20%;
+        float: right;
+        margin-top: 20%;
+      }
+
+      .CancelButton {
+        display:block;
+        background-color: #DAA520;
+        position: absolute;
+        border-style: solid;
+        border-radius: 25%;
+        border-color: beige;
+        left: 80%;
+        width: 20%;
+        float: left;
+        margin-top: 20%;
+      }
+
+      .SignUp {
+        display:block;
+        color:#0000FF;
+        position: absolute;
+        top: 300%;
+      }
+  }
 }

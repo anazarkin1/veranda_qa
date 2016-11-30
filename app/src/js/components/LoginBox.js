@@ -11,13 +11,18 @@ export default class LoginBox extends Component {
 	render() {
 		return (
 			<div className='loginBoxContainer'>
-				<p className='loginTitle'>Welcome to Veranda! Please login</p>
+				<header className='loginTitle'>Welcome to Veranda! Please login</header>
 
 				<div className='loginBox'>
-					<div>ID</div>
-					<InfoBox />
-					<div>password</div>
-					<InfoBox />
+					<div id='ID'>ID:</div>
+					<input type='text' id='IDBox'></input>
+					<br></br><br></br>
+					<div id='password'>password:</div>
+					<input type='text' id='passwordBox'></input>
+					<button className='EnterButton'>Enter</button>
+					<button className='CancelButton'>Cancel</button>
+					<br></br><br></br>
+					<a className='SignUp' href=''>SignUp</a>
 
 				</div>
 			</div>
