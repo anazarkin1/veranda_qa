@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import ViewContainer from '../ViewContainer';
+import LoginBox from '../components/LoginBox';
 
 class Login extends Component {
 	constructor() {
@@ -13,7 +14,9 @@ class Login extends Component {
 	render() {
 		return (
 			<div className='login'>
-				Login
+				<LoginBox
+
+				/>
 			</div>
 		);
 	}
