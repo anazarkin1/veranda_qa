@@ -1,13 +1,42 @@
 /* Answer */
 
 .answer-list {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    .answer {
-        border: 1px solid $grey1;
-        border-radius: 3px;
-        margin: 15px 0;
-        min-height: 200px;
+  .answer {
+    border: 1px solid $grey1;
+    border-radius: 3px;
+    margin: 15px 0;
+    min-height: 200px;
+  }
+}
+
+.answer-new {
+  .answer-new-btn {
+    display: inline-block;
+    border: 1px solid $blue1;
+    border-radius: 2px;
+    margin: 25px 10px;
+
+    position: relative;
+    transform: translateY(-50%);
+
+    padding: 4px 12px;
+
+    @extend .clickable;
+
+    &.right {
+      float: right;
     }
+
+    &.left {
+      float: left;
+    }
+
+    &:hover, &:active {
+      background: $blue2;
+      color: $purple1;
+    }
+  }
 }
