@@ -8,17 +8,21 @@
     vertical-align: middle;
     display: block;
     border-style: solid;
-    padding: 10%;
-    padding-bottom: 20%;
+    padding: 8%;
+    padding-top: 3%;
+    padding-bottom: 12%;
+    margin-right: 18%;
     top:25%;
     left: 20%;
 
     .loginTitle {
-      // max-width:50%;
+      // background-color: black;
       font-size: 200%;
       color: black;
       font-weight: bold;
-      padding-bottom: 20%;
+      padding-bottom: 10%;
+      text-align:center;
+      // margin-top: -10%;
     }
 
     .loginBox {
@@ -33,6 +37,7 @@
         float:left;
         position: relative;
         display: inline;
+        font-weight: bold;
       }
 
       #IDBox {
@@ -48,6 +53,10 @@
         float:left;
         position: relative;
         display: inline;
+        font-weight: bold;
+        max-width: 50%;
+        word-wrap: break-word;
+        word-break: normal;
       }
 
       #passwordBox {
@@ -66,7 +75,7 @@
         border-style: solid;
         border-radius: 25%;
         border-color: beige;
-        left: 1%;
+        left: 20%;
         width: 20%;
         float: right;
         margin-top: 20%;
@@ -79,7 +88,7 @@
         border-style: solid;
         border-radius: 25%;
         border-color: beige;
-        left: 80%;
+        left: 60%;
         width: 20%;
         float: left;
         margin-top: 20%;
@@ -89,7 +98,7 @@
         display:block;
         color:#0000FF;
         position: absolute;
-        top: 300%;
+        margin-top: 25%;
       }
   }
 }

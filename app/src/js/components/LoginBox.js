@@ -12,12 +12,12 @@ export default class LoginBox extends Component {
 		return (
 			<div className='loginBoxContainer'>
 				<header className='loginTitle'>Welcome to Veranda! Please login</header>
-
+					<br></br><br></br>
 				<div className='loginBox'>
 					<div id='ID'>ID:</div>
 					<input type='text' id='IDBox'></input>
 					<br></br><br></br>
-					<div id='password'>password:</div>
+					<div id='password'>psw:</div>
 					<input type='text' id='passwordBox'></input>
 					<button className='EnterButton'>Enter</button>
 					<button className='CancelButton'>Cancel</button>
