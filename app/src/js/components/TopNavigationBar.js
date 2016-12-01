@@ -65,18 +65,14 @@ export default class TopNavigationBar extends Component {
 		} else {
 			return (
 				<header className='top-navigation-bar'>
-					<NavigationButton
-						label='Signup'
-						left={true}
-						onClick={() => veranda.redirect('/signup')}
-					/>
+
 					<h1
 						onClick={() => veranda.redirect('/')}
 					>Veranda</h1>
 					<NavigationButton
 						label='Login'
 						right={true}
-						onClick={this.login}
+						onClick={() => veranda.redirect('/login')}
 					/>
 				</header>
 			);
