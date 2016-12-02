@@ -38,30 +38,33 @@
 }
 
 .answer-new {
-  .answer-new-btn {
+  .answer-new-controls {
     display: inline-block;
-    border: 1px solid $blue1;
-    border-radius: 2px;
     margin: 25px 10px;
-
     position: relative;
     transform: translateY(-50%);
+    float: right;
+    .answer-new-btn {
 
-    padding: 4px 12px;
+      border: 1px solid $blue1;
+      border-radius: 2px;
+      padding: 4px 12px;
 
-    @extend .clickable;
+      @extend .clickable;
 
-    &.right {
-      float: right;
-    }
+      &.right {
+        float: right;
+      }
 
-    &.left {
-      float: left;
-    }
+      &.left {
+        float: left;
+      }
 
-    &:hover, &:active {
-      background: $blue2;
-      color: $purple1;
+      &:hover, &:active {
+        background: $blue2;
+        color: $purple1;
+      }
     }
   }
+  @extend .clearfix;
 }

@@ -14,8 +14,8 @@ export default class RichEditor extends Component {
 
     onChange(value) {
         this.setState({value});
-        if (this.props.changeHandler) {
-            this.props.changeHandler(
+        if (this.props.onValueChanged) {
+            this.props.onValueChanged(
                 value.toString('html')
             );
         }
