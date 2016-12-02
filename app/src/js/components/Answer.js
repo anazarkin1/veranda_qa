@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 
+import UpvoteButton from './UpvoteButton';
+import Comments from './Comments';
+import ModerationTools from './ModerationTools';
+
 export default class Answer extends Component {
 	constructor() {
 		super();
@@ -10,7 +14,23 @@ export default class Answer extends Component {
 	render() {
 		return (
 			<div className='answer'>
-				Answer {this.props.id}
+				<UpvoteButton id={this.props.id}/>Answer {this.props.id}
+				<div className="createdby">
+					Created by: {this.props.created_by_name}
+				</div>
+				<br/>
+				{this.props.content}
+				<br/>
+				<div className="timeposted">
+					Time Posted: {this.props.created_at}
+				</div>
+				<div className="timemodified">
+					Time Modified: {this.props.updated_at}
+				</div>
+				<br/>
+				Comments:<br/>
+				<Comments/>
+				<ModerationTools/>
 			</div>
 		);
 	}
