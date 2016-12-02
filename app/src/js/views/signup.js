@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
 import ViewContainer from '../ViewContainer';
-import LoginBox from '../components/LoginBox';
+import SignupBox from '../components/SignupBox';
 
-class Login extends Component {
+class Signup extends Component {
 	constructor() {
 		super();
 
@@ -13,8 +13,8 @@ class Login extends Component {
 
 	render() {
 		return (
-			<div className='login'>
-				<LoginBox
+			<div className='signup'>
+				<SignupBox
 
 				/>
 			</div>
@@ -24,7 +24,7 @@ class Login extends Component {
 
 veranda.onReady(() => {
 	ReactDOM.render(
-		<ViewContainer><Login /></ViewContainer>,
+		<ViewContainer><Signup /></ViewContainer>,
 		document.getElementById('root')
 	);
 });

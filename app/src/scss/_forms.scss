@@ -9,13 +9,25 @@
             font-size: 0.95em;
             margin-bottom: 0.6em;
         }
+
+        &.form-actions {
+            @extend .clearfix;
+
+            > *:first-child {
+                margin-left: 0;
+            }
+
+            > *:last-child {
+                margin-right: 0;
+            }
+        }
     }
 }
 
 .input {
     display: inline-block;
 
-    input[type=text] {
+    input[type=text], input[type=password], input[type=email] {
         outline: none;
         padding: 6px;
         margin: 0;
@@ -37,5 +49,54 @@
             border-color: #66afe9;
             box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
         }
+    }
+}
+
+.btn {
+    display: inline-block;
+    border: 1px solid $blue1;
+    border-radius: 2px;
+    margin: 0 10px;
+    background: $black;
+    color: #fff;
+
+    padding: 4px 12px;
+
+    @extend .clickable;
+
+    &.right {
+        float: right;
+    }
+
+    &.left {
+        float: left;
+    }
+
+    &:hover, &:active {
+        background: $blue2;
+        color: $purple1;
+    }
+}
+
+a.link {
+    display: inline-block;
+    margin: 0 10px;
+    color: $blue2;
+    text-decoration: none;
+    padding: 4px 0;
+
+    @extend .clickable;
+
+    &.right {
+        float: right;
+    }
+
+    &.left {
+        float: left;
+    }
+
+    &:hover, &:active {
+        color: $black;
+        text-decoration: underline;
     }
 }

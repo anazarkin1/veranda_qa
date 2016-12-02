@@ -38,6 +38,12 @@ var Router = (app, dao) => {
         res.redirect('/login');
     });
 
+    app.get('/signup', (req, res) => {
+        res.render('signup');
+    });
+
+
+
     app.get('/dashboard(/([0-9]+))?', MW.authentication, (req, res, next) => {
         // 3 Types of Dashboards
 
