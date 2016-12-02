@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 
-import InfoBox from './InfoBox';
-
 export default class LoginBox extends Component {
 	constructor() {
 		super();
@@ -27,7 +25,7 @@ export default class LoginBox extends Component {
 						<div className='form-group'>
 							<label className='label'>Password:</label>
 							<div className='input'>
-								<input type='password' />
+								<input type='password' placeholder='*****' />
 							</div>
 						</div>
 						<div className='form-group form-actions'>
