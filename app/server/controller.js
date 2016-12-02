@@ -53,6 +53,39 @@ var Controller = (app, dao) => {
         // var hashed_password = bcrypt.hashSync(raw_password, 10);
     });
 
+    /* Answer */
+    app.post('/answer', (req, res) => {
+        req.checkBody('thread_id').notEmpty();
+        req.checkBody('content').notEmpty();
+        req.checkBody('is_anon').notEmpty();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Answer.post(req.body, req.session.account_id)))
+            .then((answer) => {
+                res.json(answer.json());
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({ error: { reason: 'Bad request.' } });
+            });
+    });
+
+    app.get('/answers', (req, res) => {
+        req.checkBody('thread_id').notEmpty();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Answer.getByThread(req.body.thread_id, req.session.account_id)))
+            .then((answers) => {
+                res.json(answers.map(answer => answer.json()));
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({ error: { reason: 'Bad request.' } });
+            });
+    });
+
 };
 
 module.exports = Controller;
