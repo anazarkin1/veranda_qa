@@ -1,41 +1,30 @@
 /* Core Theme */
-
 /* Globals */
 @import 'globals';
-
 /* Normalize environment first. */
 @import 'normalize';
-
 /* Colour guide. */
 @import 'colours';
-
 /* Mixins */
 @import 'mixins';
-
 /* HTML Defaults */
 @import 'htmlDefaults';
-
 /* Font Awesome */
 @import 'font-awesome/scss/font-awesome';
-
 /* View */
 @import 'view';
-
 /* Layout */
 @import 'layouts';
-
 /* Forms */
 @import 'forms';
-
 /* Navigation */
 @import 'navigation/_topbar';
 @import 'navigation/_questionlist';
-
 /* Thread */
 @import 'thread/thread';
 @import 'thread/question';
 @import 'thread/answer';
-
+@import 'thread/comment';
 /* Login */
 @import 'login/loginBox';
 @import 'login/infoBox';
