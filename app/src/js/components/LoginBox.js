@@ -13,25 +13,32 @@ export default class LoginBox extends Component {
 			<div className='login-box-container'>
 				<header
 					className='login-title'
-					>Welcome to Veranda! Please login
+				>
+					Login
 				</header>
-					<br></br><br></br>
 				<div className='login-box'>
-					<div id='ID'>email:</div>
-					<input type='text' id='IDBox'></input>
-					<br></br><br></br>
-					<div id='password'>psw:</div>
-					<input type='text' id='passwordBox'></input>
-					<button
-						className='enter-button'
-					>Enter</button>
-					<button
-						className='cancel-button'
-						onClick={() => veranda.redirect('/login')}
-					>Cancel</button>
-					<br></br><br></br>
-					<a className='sign-up' href='/signup'>SignUp</a>
-
+					<div className='form'>
+						<div className='form-group'>
+							<label className='label'>Email:</label>
+							<div className='input'>
+								<input type='email' placeholder='Email Address' />
+							</div>
+						</div>
+						<div className='form-group'>
+							<label className='label'>Password:</label>
+							<div className='input'>
+								<input type='password' />
+							</div>
+						</div>
+						<div className='form-group form-actions'>
+							<a className='link left'
+								onClick={() => veranda.redirect('/signup')}
+							>Sign Up</a>
+							<button
+								className='btn enter-button right'
+							>Login</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		);
