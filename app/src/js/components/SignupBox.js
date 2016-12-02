@@ -10,8 +10,8 @@ export default class SignupBox extends Component {
 
 	render() {
 		return (
-			<div className='signupBoxContainer'>
-				Signup page is here 
+			<div className='signup-box-container'>
+				Signup page is here
 			</div>
 		);
 	}

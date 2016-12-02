@@ -8,7 +8,7 @@ export default class InfoBox extends Component {
 
 	render() {
 		return (
-				<input type='text' className='infoBox'>
+				<input type='text' className='info-box'>
 
 				</input>
 

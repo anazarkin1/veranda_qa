@@ -10,27 +10,27 @@ export default class LoginBox extends Component {
 
 	render() {
 		return (
-			<div className='loginBoxContainer'>
+			<div className='login-box-container'>
 				<header
-					className='loginTitle'
+					className='login-title'
 					>Welcome to Veranda! Please login
 				</header>
 					<br></br><br></br>
-				<div className='loginBox'>
+				<div className='login-box'>
 					<div id='ID'>email:</div>
 					<input type='text' id='IDBox'></input>
 					<br></br><br></br>
 					<div id='password'>psw:</div>
 					<input type='text' id='passwordBox'></input>
 					<button
-						className='EnterButton'
+						className='enter-button'
 					>Enter</button>
 					<button
-						className='CancelButton'
+						className='cancel-button'
 						onClick={() => veranda.redirect('/login')}
 					>Cancel</button>
 					<br></br><br></br>
-					<a className='SignUp' href='/signup'>SignUp</a>
+					<a className='sign-up' href='/signup'>SignUp</a>
 
 				</div>
 			</div>
