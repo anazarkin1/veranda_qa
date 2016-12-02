@@ -1,32 +1,33 @@
 import React, {Component} from "react";
-import classNames from "classnames";
 import RichEditor from "./RichEditor";
+import AnswerNewControls from "./AnswerNewControls";
 
-
-const AnswerNewButton = props => (
-    <div
-        className={classNames('answer-new-btn', {
-            'left': props.left === true,
-            'right': props.right === true
-        })}
-        onClick={props.onClick}
-    >{props.label}</div>
-);
 
 export default class AnswerNew extends Component {
     constructor() {
         super();
 
         this.state = {
-            value: ""
+            value: "",
+            is_anon: false
         };
-        this.changeHandler = this.changeHandler.bind(this);
+        this.onValueChanged = this.onValueChanged.bind(this);
         this.onCancel = this.onCancel.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+        this.onIsAnonChanged = this.onIsAnonChanged.bind(this);
     }
 
-    changeHandler(value) {
-        this.setState({value});
+    onValueChanged(value) {
+        //Copy old state, change its value to new val
+        let newState = this.state.slice();
+        newState.value = value;
+        this.setState({newState});
+        console.log(value);
+    }
+
+    onIsAnonChanged() {
+        this.setState({is_anon: !this.state.is_anon});
+        console.log(this.state);
     }
 
     onCancel() {
@@ -34,26 +35,30 @@ export default class AnswerNew extends Component {
     }
 
     onSubmit() {
-
+        //TODO: replace dummy ajax result var 'r'
+        // TODO:send ajax post and check return value
+        let r = {
+            id: 99,
+            created_at: ((+new Date()) / 1000) - 1000,
+            content: 'New Answer 1',
+            created_by: 'user999'
+        };
+        if (true) {
+            this.props.onPostSuccess(r);
+        }
     }
 
     render() {
         return (
             <div className='answer-new'>
                 <RichEditor
-                    changeHandler={this.changeHandler}
+                    changeHandler={this.onValueChanged}
                 />
-                <AnswerNewButton
-                    label="Submit"
-                    right={true}
-                    onClick={this.onSubmit}
+                <AnswerNewControls
+                    onSubmit={this.onSubmit}
+                    onCancel={this.onCancel}
+                    onIsAnonChanged={this.onIsAnonChanged}
                 />
-                <AnswerNewButton
-                    label="Cancel"
-                    right={true}
-                    onClick={this.onCancel}
-                />
-
             </div>
         );
     }
