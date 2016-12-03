@@ -19,6 +19,7 @@ export default class LoginBox extends Component {
 		this.onEmailChange = this.onEmailChange.bind(this);
 		this.onPasswordChange = this.onPasswordChange.bind(this);
 		this.clearError = this.clearError.bind(this);
+		this.onPasswordKP = this.onPasswordKP.bind(this);
 	}
 
 	login() {
@@ -62,6 +63,12 @@ export default class LoginBox extends Component {
 		}
 	}
 
+	onPasswordKP(e) {
+		if (e.key == 'Enter') {
+			this.login();
+		}
+	}
+
 
 	render() {
 		return (
@@ -91,7 +98,7 @@ export default class LoginBox extends Component {
 						<div className='form-group'>
 							<label className='label'>Password:</label>
 							<div className='input'>
-								<input type='password' placeholder='*****'  onChange={this.onPasswordChange} />
+								<input type='password' placeholder='*****'  onChange={this.onPasswordChange} onKeyPress={this.onPasswordKP} />
 							</div>
 						</div>
 						<div className='form-group form-actions'>

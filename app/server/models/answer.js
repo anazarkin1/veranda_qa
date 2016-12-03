@@ -116,7 +116,7 @@ module.exports = (dao) => {
             account_id = parseInt(account_id);
 
             dao.get().query(`
-                DELETE FROM Answer WHERE answer_Id = ? AND created_by = ?`,
+                DELETE FROM Answer WHERE answer_id = ? AND created_by = ?`,
                 [answer_id, account_id],
                 (err, results) => {
                     if (err || results.affectedRows === 0) {

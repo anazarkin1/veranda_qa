@@ -121,6 +121,59 @@ var Controller = (app, dao) => {
             });
     });
 
+    app.put('/vote', (req, res) => {
+        req.checkBody('thread_id').optional().isInt();
+        req.checkBody('answer_id').optional().isInt();
+
+        if (!req.body.thread_id && !req.body.answer_id) {
+            res.status(400);
+            res.json({error: {reason: 'Bad request.'}});
+        } else {
+            let promise = req.getValidationResult()
+                .then((validation) => (ConditionalPromise(validation.isEmpty())))
+                .then(() => (Models.Vote.put(req.body, req.session.account_id)))
+                .then((vote) => {
+                    res.json(vote.json());
+                })
+                .catch(() => {
+                    res.status(400);
+                    res.json({error: {reason: 'Bad request.'}});
+                });
+        }
+    });
+
+    app.delete('/vote/thread/:id', (req, res) => {
+        req.checkParams('id').isInt();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Vote.delete({ thread_id: req.params.id }, req.session.account_id)))
+            .then((vote) => {
+                res.json(vote.json());
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+
+    });
+
+    app.delete('/vote/answer/:id', (req, res) => {
+        req.checkParams('id').isInt();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Vote.delete({ answer_id: req.params.id }, req.session.account_id)))
+            .then((vote) => {
+                res.json(vote.json());
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+
+    });
+
 };
 
 module.exports = Controller;

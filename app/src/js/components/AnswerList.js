@@ -27,6 +27,9 @@ export default class AnswerList extends Component {
                         updated_at={answer.updated_at}
                         votes={answer.votes}
                         voted={answer.voted}
+                        
+                        onVote={() => (this.props.onVote(answer.answer_id))}
+                        onUnvote={() => (this.props.onUnvote(answer.answer_id))}
                     />
                 ))}
             </div>
