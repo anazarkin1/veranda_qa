@@ -17,7 +17,7 @@ var Controller = (app, dao) => {
             }
 
             res.status(401);
-            res.json({ error: { code: 401, reason: 'Must be logged in.' } });
+            res.json({error: {code: 401, reason: 'Must be logged in.'}});
         }
     };
 
@@ -40,11 +40,11 @@ var Controller = (app, dao) => {
                 req.session.account_id = account.id;
                 req.session.name = account.name;
                 req.session.authenticated = true;
-                res.json({ status: 200 });
+                res.json({status: 200});
             })
             .catch(() => {
                 res.status(401);
-                res.json({ error: { reason: 'Invalid email/password.' } });
+                res.json({error: {reason: 'Invalid email/password.'}});
             });
     });
 
@@ -67,22 +67,22 @@ var Controller = (app, dao) => {
             })
             .catch(() => {
                 res.status(400);
-                res.json({ error: { reason: 'Bad request.' } });
+                res.json({error: {reason: 'Bad request.'}});
             });
     });
 
     app.get('/answers', (req, res) => {
-        req.checkBody('thread_id').notEmpty();
+        req.checkQuery('thread_id').notEmpty();
 
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
-            .then(() => (Models.Answer.getByThread(req.body.thread_id, req.session.account_id)))
+            .then(() => (Models.Answer.getByThread(req.query.thread_id, req.session.account_id)))
             .then((answers) => {
                 res.json(answers.map(answer => answer.json()));
             })
             .catch(() => {
                 res.status(400);
-                res.json({ error: { reason: 'Bad request.' } });
+                res.json({error: {reason: 'Bad request.'}});
             });
     });
 

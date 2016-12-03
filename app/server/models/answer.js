@@ -15,16 +15,16 @@ module.exports = (dao) => {
         this.voted = data.voted == 1;
 
         this.json = () => ({
-          answer_id: this.answer_id,
-          thread_id: this.thread_id,
-          created_by: this.created_by,
-          created_by_name: this.created_by_name,
-          content: this.content,
-          updated_at: this.updated_at,
-          created_at: this.created_at,
-          is_anon: this.is_anon,
-          votes: this.votes,
-          voted: this.voted
+            answer_id: this.answer_id,
+            thread_id: this.thread_id,
+            created_by: this.created_by,
+            created_by_name: this.created_by_name,
+            content: this.content,
+            updated_at: this.updated_at,
+            created_at: this.created_at,
+            is_anon: this.is_anon,
+            votes: this.votes,
+            voted: this.voted
         });
     };
 
@@ -104,7 +104,7 @@ module.exports = (dao) => {
                     if (err) {
                         reject();
                     } else {
-                        Model.get(results[0].insertId, account_id).then(resolve).catch(reject);
+                        Model.get(results.insertId, account_id).then(resolve).catch(reject);
                     }
                 });
         });
