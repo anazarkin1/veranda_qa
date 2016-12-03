@@ -5,6 +5,7 @@ module.exports = (dao) => {
     var Model = function (data) {
         this.comment_id = data.comment_id;
         this.thread_id = data.thread_id;
+        this.answer_id = data.answer_id;
         this.created_by = data.created_by;
         this.created_by_name = data.created_by_name;
         this.content = data.content;
@@ -15,6 +16,7 @@ module.exports = (dao) => {
         this.json = () => ({
             comment_id: this.comment_id,
             thread_id: this.thread_id,
+            answer_id: this.answer_id,
             created_by: this.created_by,
             created_by_name: this.created_by_name,
             content: this.content,
@@ -24,27 +26,26 @@ module.exports = (dao) => {
         });
     };
 
-    Model.get = (answer_id, account_id) => {
+    Model.get = (thread_id, answer_id) => {
         return new Promise((resolve, reject) => {
-            answer_id = parseInt(answer_id);
-            account_id = parseInt(account_id);
+            console.log(thread_id, answer_id);
+            thread_id = parseInt(thread_id);
+            if (answer_id != null) {
+                answer_id = parseInt(answer_id);
+            }
 
             dao.get().query(`
-                SELECT
-                  T.answer_id, T.thread_id, T.created_by, T.content,
+             SELECT T.comment_id, T.thread_id, T.created_by, T.content,
                   UNIX_TIMESTAMP(T.created_at) as created_time,
-                  UNIX_TIMESTAMP(T.updated_at) as updated_time, T.is_anon,
+                  UNIX_TIMESTAMP(T.updated_at) as updated_time, 
+                  T.is_anon,
                   (IF(T.is_anon = 1, '', (
                     SELECT name from Account WHERE Account.account_id = T.created_by
-                  ))) as created_by_name,
-                  (SELECT COUNT(*) FROM AnswerVote WHERE
-                    AnswerVote.answer_id = T.answer_id) as votes,
-                  (SELECT COUNT(*) FROM AnswerVote WHERE
-                    AnswerVote.created_by = ? AND
-                    AnswerVote.answer_id = T.answer_id) as voted
-                  FROM Answer T
-                  WHERE answer_id = ?`,
-                [account_id, answer_id],
+                  ))) as created_by_name
+				  FROM Comment T
+                  WHERE thread_id = ? AND answer_id = ?
+                `,
+                [thread_id, answer_id],
                 (err, results) => {
                     if (err || results.length === 0) {
                         reject();
@@ -55,27 +56,23 @@ module.exports = (dao) => {
         });
     };
 
-    Model.getByThread = (thread_id, account_id) => {
+    //FIXME: change to work for comments
+    /*Model.getByThread = (account_id) => {
         return new Promise((resolve, reject) => {
-            thread_id = parseInt(thread_id);
             account_id = parseInt(account_id);
 
             dao.get().query(`
-                SELECT
-                  T.answer_id, T.thread_id, T.created_by, T.content,
+     SELECT T.comment_id, T.thread_id, T.created_by, T.content,
                   UNIX_TIMESTAMP(T.created_at) as created_time,
-                  UNIX_TIMESTAMP(T.updated_at) as updated_time, T.is_anon,
+     UNIX_TIMESTAMP(T.updated_at) as updated_time,
+     T.is_anon,
                   (IF(T.is_anon = 1, '', (
                     SELECT name from Account WHERE Account.account_id = T.created_by
-                  ))) as created_by_name,
-                  (SELECT COUNT(*) FROM AnswerVote WHERE
-                    AnswerVote.answer_id = T.answer_id) as votes,
-                  (SELECT COUNT(*) FROM AnswerVote WHERE
-                    AnswerVote.created_by = ? AND
-                    AnswerVote.answer_id = T.answer_id) as voted
-                  FROM Answer T
-                  WHERE thread_id = ?`,
-                [account_id, thread_id],
+     ))) as created_by_name
+     FROM Comment T
+     WHERE thread_id = ?
+     `,
+     [thread_id],
                 (err, results) => {
                     if (err || results.length === 0) {
                         reject();
@@ -85,7 +82,7 @@ module.exports = (dao) => {
                 });
         });
     };
-
+     //FIXME: change to work for comments
     Model.post = (answer, account_id) => {
         return new Promise((resolve, reject) => {
             account_id = parseInt(account_id);
@@ -105,7 +102,7 @@ module.exports = (dao) => {
                 });
         });
     };
-
+     //FIXME: change to work for comments
     Model.delete = (answer_id, account_id) => {
         return new Promise((resolve, reject) => {
             answer_id = parseInt(answer_id);
@@ -123,6 +120,6 @@ module.exports = (dao) => {
                 });
         });
     };
-
+     */
     return Model;
 };

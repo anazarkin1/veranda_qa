@@ -86,6 +86,28 @@ var Controller = (app, dao) => {
             });
     });
 
+    /*  Comment */
+
+    app.get('/comments', (req, res) => {
+        let thread_id, answer_id = null;
+        req.checkQuery('thread_id').notEmpty();
+        if (req.query.answer_id) {
+            req.checkQuery('answer_id').notEmpty();
+            answer_id = req.query.answer_id;
+        }
+        thread_id = req.query.thread_id;
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Comment.get(thread_id, answer_id)))
+            .then((comments) => {
+                res.json(comments.map(comment => comment.json()));
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
 };
 
 module.exports = Controller;
