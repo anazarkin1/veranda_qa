@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
-
-import Comments from './Comments';
+import React, {Component} from "react";
+import Comments from "./comments/CommentsThread";
 
 export default class Question extends Component {
 	constructor() {
