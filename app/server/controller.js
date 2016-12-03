@@ -55,7 +55,7 @@ var Controller = (app, dao) => {
 
     /* Answer */
     app.post('/answer', (req, res) => {
-        req.checkBody('thread_id').notEmpty();
+        req.checkBody('thread_id').notEmpty().isInt();
         req.checkBody('content').notEmpty();
         req.checkBody('is_anon').notEmpty();
 
@@ -71,8 +71,38 @@ var Controller = (app, dao) => {
             });
     });
 
+    app.get('/answer', (req, res) => {
+        req.checkQuery('answer_id').notEmpty().isInt();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Answer.get(req.query.answer_id, req.session.account_id)))
+            .then((answer) => {
+                res.json(answer.json());
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
+
+    app.delete('/answer', (req, res) => {
+        req.checkBody('answer_id').notEmpty().isInt();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Answer.delete(req.body.answer_id, req.session.account_id)))
+            .then((answer_id) => {
+                res.json({ status: 200 });
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
+
     app.get('/answers', (req, res) => {
-        req.checkQuery('thread_id').notEmpty();
+        req.checkQuery('thread_id').notEmpty().isInt();
 
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
