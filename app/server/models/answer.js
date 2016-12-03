@@ -93,13 +93,13 @@ module.exports = (dao) => {
     Model.post = (answer, account_id) => {
         return new Promise((resolve, reject) => {
             account_id = parseInt(account_id);
-
+            let is_anon = answer.is_anon === true || answer.is_anon === 1;
             dao.get().query(`
                 INSERT INTO Answer
-                (thread_id, content, is_anon, created_by)
+                (thread_id, content, is_anon, created_by, created_at, updated_at)
                 VALUES
-                (?, ?, ?, ?)`,
-                [answer.thread_id, answer.content, answer.is_anon, account_id],
+                (?, ?, ?, ?, NOW(), NOW())`,
+                [answer.thread_id, answer.content, is_anon, account_id],
                 (err, results) => {
                     if (err) {
                         reject();
@@ -116,7 +116,7 @@ module.exports = (dao) => {
             account_id = parseInt(account_id);
 
             dao.get().query(`
-                DELETE FROM Answer WHERE answer_Id = ? AND created_by = ?`,
+                DELETE FROM Answer WHERE answer_id = ? AND created_by = ?`,
                 [answer_id, account_id],
                 (err, results) => {
                     if (err || results.affectedRows === 0) {

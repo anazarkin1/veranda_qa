@@ -13,7 +13,7 @@ export default class Thread extends Component {
         return (
             <div className='thread'>
                 <Question id={this.props.id}/>
-                <AnswerWrapper id={this.props.id}/>
+                <AnswerWrapper thread_id={this.props.id}/>
             </div>
         );
     }

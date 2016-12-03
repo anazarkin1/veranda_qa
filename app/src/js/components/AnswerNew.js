@@ -31,19 +31,18 @@ export default class AnswerNew extends Component {
    }
 
    onSubmit() {
-       //TODO: replace dummy ajax result var 'r'
-       // TODO:send ajax post and check return value
 
-
-       let r = {
-           id: 99,
-           created_at: ((+new Date()) / 1000) - 1000,
-           content: 'New Answer 1',
-           created_by: 'user999'
-       };
-       if (true) {
-           this.props.onPostSuccess(r);
-       }
+       axios.post('/answer', {
+         thread_id: this.props.thread_id,
+         content: this.state,
+         is_anon: this.props.is_anon
+       })
+       .then(function (response) {
+         this.props.onPostSuccess(response);
+       })
+       .catch(function (error) {
+         console.log(error);
+       });
    }
 
    render() {

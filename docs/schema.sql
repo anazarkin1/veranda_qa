@@ -153,6 +153,7 @@ DROP TABLE IF EXISTS `veranda`.`Comment` ;
 CREATE TABLE IF NOT EXISTS `veranda`.`Comment` (
   `comment_id` INT NOT NULL AUTO_INCREMENT,
   `thread_id` INT NOT NULL,
+  `answer_id` INT NULL,
   `created_by` INT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NOT NULL,
@@ -161,6 +162,10 @@ CREATE TABLE IF NOT EXISTS `veranda`.`Comment` (
   PRIMARY KEY (`comment_id`),
   FOREIGN KEY (`thread_id`)
     REFERENCES `veranda`.`Thread` (`thread_id`)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  FOREIGN KEY (`answer_id`)
+    REFERENCES `veranda`.`Answer` (`answer_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   FOREIGN KEY (`created_by`)
