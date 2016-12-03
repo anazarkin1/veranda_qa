@@ -7,7 +7,7 @@ export default class LoginBox extends Component {
 
 		this.state = {
 			error: false,
-			errorMessage: ""
+			errorMessage: ''
 		};
 
 		this.value = {
@@ -39,7 +39,7 @@ export default class LoginBox extends Component {
 		} else {
 			this.setState({
 				error: true,
-				errorMessage: "Please fill in all fields."
+				errorMessage: 'Please fill in all fields.'
 			});
 		}
 	}

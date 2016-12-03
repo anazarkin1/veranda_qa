@@ -15,7 +15,9 @@ export default class SignupBox extends Component {
 		};
 
 		this.state = {
-			mode: 'student'
+			mode: 'student',
+			error: false,
+			errorMessage: ''
 		};
 
 		this.switchToStudent = this.switchToStudent.bind(this);
@@ -24,76 +26,63 @@ export default class SignupBox extends Component {
 		this.signup = this.signup.bind(this);
 		this.onEmailChange = this.onEmailChange.bind(this);
 		this.onPasswordChange = this.onPasswordChange.bind(this);
-		this.onFirstNameChange = this.onFirstNameChange.bind(this);
-		this.onLastNameChange = this.onLastNameChange.bind(this);
+		this.onNameChange = this.onNameChange.bind(this);
 		this.onUniveristyChange = this.onUniveristyChange.bind(this);
-		this.onFacultyChange = this.onFacultyChange.bind(this);
 	}
 
-	signup() {
-		if (this.value.mode == 'student') {
-			if (this.value.email && this.value.password && this.value.firstName && this.value.lastName) {
-				axios.post('/account', {
-					email: this.value.email,
-					password: this.value.password,
-					firstname: this.value.firstName,
-					lastname: this.value.lastName,
-					mode: this.value.mode
-				}).then(resp => {
-					if (resp.status == 200) {
-						veranda.redirect('/login');
-					}
-				}).catch(err => {
-					console.log('Please check your personal info is filled correctly.')
-				});
-			}
-		}
-		else if (this.value.mode == 'instructor') {
-			if (this.value.email && this.value.password && this.value.firstName && this.value.lastName && this.value.univeristy && this.value.faculty) {
-				axios.post('/account', {
-					email: this.value.email,
-					password: this.value.password,
-					firstname: this.value.firstName,
-					lastname: this.value.lastName,
-					univerisity: this.value.university,
-					faculty: this.value.faculty,
-					mode: this.value.mode
-				}).then(resp => {
-					if (resp.status == 200) {
-						veranda.redirect('/login');
-					}
-				}).catch(err => {
-					console.log('Please check your personal info is filled correctly.')
-				});
-			}
-		}
-	}
+	// signup() {
+	// 	if (this.value.mode == 'student') {
+	// 		if (this.value.email && this.value.password && this.value.name) {
+	// 			axios.post('/account', {
+	// 				email: this.value.email,
+	// 				password: this.value.password,
+	// 				name: this.value.name,
+	// 				mode: this.value.mode
+	// 			}).then(resp => {
+	// 				if (resp.status == 200) {
+	// 					veranda.redirect('/login');
+	// 				}
+	// 			}).catch(err => {
+	// 				error: true,
+					// errorMessage: err.response.data.error.reason
+	// 			});
+	// 		}
+	// 	}
+	// 	else if (this.value.mode == 'instructor') {
+	// 		if (this.value.email && this.value.password && this.value.name && this.value.univeristy) {
+	// 			axios.post('/account', {
+	// 				email: this.value.email,
+	// 				password: this.value.password,
+	// 				name: this.value.name,
+	// 				univerisity: this.value.university,
+	// 				mode: this.value.mode
+	// 			}).then(resp => {
+	// 				if (resp.status == 200) {
+	// 					veranda.redirect('/login');
+	// 				}
+	// 			}).catch(err => {
+	// 				console.log('Please check your personal info is filled correctly.')
+	// 			});
+	// 		}
+	// 	} else {
+	// 		this.setSate({
+	// 			error: true,
+				// errorMessage: 'Please fill in all fields.'
+	// 		});
+	// 	}
+ // 	}
 
 	onEmailChange(e) {
 		this.value.email = e.target.value;
 	}
 
-	onFirstNameChange(e) {
-		this.value.firstName = e.target.value;
-	}
-
-	onLastNameChange(e) {
-		this.value.lastName = e.target.value;
+	onNameChange(e) {
+		this.value.name = e.target.value;
 	}
 
 	onUniveristyChange(e) {
 		this.value.univeristy = e.target.value;
 	}
-
-	onFacultyChange(e) {
-		this.value.faculty = e.target.value;
-	}
-
-
-
-
-
-
 
 	switchToStudent() {
 		this.setState({ mode: 'student' });
@@ -103,9 +92,6 @@ export default class SignupBox extends Component {
 		this.setState({ mode: 'instructor' });
 	}
 
-	// pressBtn() {
-	// 	this.setState({ pressed: true});
-	// }
 
 	render() {
 		return (
@@ -114,7 +100,7 @@ export default class SignupBox extends Component {
 				<header
 					className='signup-title'
 				>
-					Signup as
+					Choose a mode to Signup
 				</header>
 
 				<div className='signup-box'>
@@ -129,6 +115,15 @@ export default class SignupBox extends Component {
 					</div>
 
 					<div className='form'>
+
+						{ this.state.error && (
+							<div className="form__error-wrapper">
+								<p className="form__error">
+									{this.state.errorMessage}
+								</p>
+							</div>
+						) }
+
 						<div className='form-group'>
 							<label className='label'>Email:</label>
 							<div className='input'>
@@ -142,15 +137,9 @@ export default class SignupBox extends Component {
 							</div>
 						</div>
 						<div className='form-group'>
-							<label className='label'>First Name:</label>
+							<label className='label'>Name:</label>
 							<div className='input'>
-								<input type='text' placeholder='First Name' onChange={this.onFirstNameChange} />
-							</div>
-						</div>
-						<div className='form-group'>
-							<label className='label'>Last name:</label>
-							<div className='input'>
-								<input type='text' placeholder='Last Name' onChange={this.onLastNameChange} />
+								<input type='text' placeholder='Full Name' onChange={this.onNameChange} />
 							</div>
 						</div>
 
@@ -160,13 +149,6 @@ export default class SignupBox extends Component {
 									<label className='label'>University:</label>
 									<div className='input'>
 										<input type='text' placeholder='University' onChange={this.onUniversityChange} />
-									</div>
-								</div>
-
-								<div className='form-group'>
-									<label className='label'>Faculty:</label>
-									<div className='input'>
-										<input type='text' placeholder='Faculty' onChange={this.onFacultyChange} />
 									</div>
 								</div>
 							</div>
@@ -180,6 +162,7 @@ export default class SignupBox extends Component {
 					</div>
 				</div>
 			</div>
+
 		);
 	}
 }

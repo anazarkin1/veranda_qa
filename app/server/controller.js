@@ -50,7 +50,17 @@ var Controller = (app, dao) => {
 
     /* Account Signup */
     app.post('/account', (req, res) => {
-        // var hashed_password = bcrypt.hashSync(raw_password, 10);
+        req.checkBody('email', 'Email address required.').notEmpty().isEmail();
+        req.checkBody('password').notEmpty();
+        req.checkBody('name','Name required.').notEmpty();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Account.post(req.body)))
+            .catch(() => {
+                res.status(401);
+                res.json({error: {reason: 'Email already exists.'}});
+            });
     });
 
     /* Answer */
