@@ -108,7 +108,12 @@ var Controller = (app, dao) => {
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
             .then(() => (Models.Answer.getByThread(req.query.thread_id, req.session.account_id)))
             .then((answers) => {
-                res.json(answers.map(answer => answer.json()));
+                let mappedAnswers = answers.map(answer => answer.json());
+                res.json({
+                    thread_id: req.query.thread_id,
+                    count: mappedAnswers.length,
+                    answers: mappedAnswers
+                });
             })
             .catch(() => {
                 res.status(400);
