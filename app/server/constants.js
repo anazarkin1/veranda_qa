@@ -4,9 +4,9 @@ module.exports = Object.freeze({
     DEBUG: true,
     PORT: 3000,
     DB: {
-        HOST: 'localhost',
-        USER: 'root',
-        PASSWORD: 'root',
+        HOST: 'noahnu.com',
+        USER: 'veranda',
+        PASSWORD: 'veranda_password',
         NAME: 'veranda'
     }
 });
