@@ -1,0 +1,53 @@
+/* Comment */
+
+.comments {
+  border: 1px solid $grey1;
+  border-radius: 3px;
+
+  .comment-list {
+    display: flex;
+    flex-direction: column;
+    .comment {
+      margin: 3px;
+      border-top: 1px solid $blue4;
+      border-bottom: 1px solid $blue4;
+    }
+  }
+  .comment-new {
+    .comment-new-inline-editor {
+      width: 100%;
+    }
+
+    .comment-new-controls {
+      display: inline-block;
+      margin: 10px 3px 3px;
+      position: relative;
+      transform: translateY(-50%);
+      float: right;
+      .comment-new-btn {
+
+        border: 1px solid $blue1;
+        border-radius: 1px;
+        padding: 0 3px 0 3px;
+
+        @extend .clickable;
+
+        &.right {
+          float: right;
+        }
+
+        &.left {
+          float: left;
+        }
+
+        &:hover, &:active {
+          background: $blue2;
+          color: $purple1;
+        }
+      }
+    }
+    @extend .clearfix;
+  }
+}
+
+
