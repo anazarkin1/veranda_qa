@@ -22,9 +22,9 @@ export default class CommentNew extends Component {
         this.onIsAnonChanged = this.onIsAnonChanged.bind(this);
     }
 
-    onValueChanged(value) {
+    onValueChanged(evt) {
+        let value = evt.target.value;
         this.setState({value});
-        console.log(value);
     }
 
     onIsAnonChanged() {
