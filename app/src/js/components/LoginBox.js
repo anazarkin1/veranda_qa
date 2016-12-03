@@ -5,6 +5,11 @@ export default class LoginBox extends Component {
 	constructor() {
 		super();
 
+		this.state = {
+			error: false,
+			errorMessage: ""
+		};
+
 		this.value = {
 			email: '',
 			password: ''
@@ -13,10 +18,11 @@ export default class LoginBox extends Component {
 		this.login = this.login.bind(this);
 		this.onEmailChange = this.onEmailChange.bind(this);
 		this.onPasswordChange = this.onPasswordChange.bind(this);
+		this.clearError = this.clearError.bind(this);
 	}
 
 	login() {
-		if (this.value.email && this.value.password) {
+		if (this.value.email.length > 0 && this.value.password.length > 0) {
 			axios.post('/login', {
 				email: this.value.email,
 				password: this.value.password
@@ -25,18 +31,37 @@ export default class LoginBox extends Component {
 					veranda.redirect('/');
 				}
 			}).catch(err => {
-				console.log("Invalid email/password.");
+				this.setState({
+					error: true,
+					errorMessage: err.response.data.error.reason
+				});
+			});
+		} else {
+			this.setState({
+				error: true,
+				errorMessage: "Please fill in all fields."
 			});
 		}
 	}
 
 	onEmailChange(e) {
 		this.value.email = e.target.value;
+		this.clearError();
 	}
 
 	onPasswordChange(e) {
 		this.value.password = e.target.value;
+		this.clearError();
 	}
+
+	clearError() {
+		if (this.state.error) {
+			this.setState({
+				error: false
+			});
+		}
+	}
+
 
 	render() {
 		return (
@@ -49,13 +74,13 @@ export default class LoginBox extends Component {
 				<div className='login-box'>
 					<div className='form'>
 
-						<div className="form__error-wrapper">
-							<p className="form__error form__error--username-taken">Sorry, but this username is already taken.</p>
-							<p className="form__error form__error--username-not-registered">This username does not exist.</p>
-							<p className="form__error form__error--wrong-password">Wrong password.</p>
-							<p className="form__error form__error--field-missing">Please fill out the entire form.</p>
-							<p className="form__error form__error--failed">Something went wrong, please try again!</p>
-						</div>
+						{ this.state.error && (
+							<div className="form__error-wrapper">
+								<p className="form__error">
+									{this.state.errorMessage}
+								</p>
+							</div>
+						) }
 
 						<div className='form-group'>
 							<label className='label'>Email:</label>
@@ -66,7 +91,7 @@ export default class LoginBox extends Component {
 						<div className='form-group'>
 							<label className='label'>Password:</label>
 							<div className='input'>
-								<input type='password' placeholder='*****' ref='txtPassword' onChange={this.onPasswordChange} />
+								<input type='password' placeholder='*****'  onChange={this.onPasswordChange} />
 							</div>
 						</div>
 						<div className='form-group form-actions'>
