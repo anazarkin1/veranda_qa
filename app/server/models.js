@@ -6,7 +6,8 @@ var constants = require('./constants');
 var models = (dao) => (
     {
         Account: require('./models/account')(dao),
-        Course: require('./models/course')(dao)
+        Course: require('./models/course')(dao),
+        Answer: require('./models/answer')(dao)
     }
 );
 
