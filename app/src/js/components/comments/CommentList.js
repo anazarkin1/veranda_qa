@@ -11,10 +11,6 @@ export default class CommentsThread extends Component {
         super();
     }
 
-    componentDidMount() {
-        //TODO: replace dummy data
-    }
-
     render() {
         return (
             <div className='comment-list'>
@@ -22,7 +18,7 @@ export default class CommentsThread extends Component {
                     <Comment
                         key={comment.id}
                         id={comment.id}
-                        text={comment.text}
+                        text={comment.content}
                     />
                 ))}
             </div>

@@ -41,7 +41,7 @@ export default class CommentsThread extends Component {
         //add newPost to the front ofanswersList
         if (Object.keys(newPost).length > 0) {
             let newComments = this.state.comments.slice()
-            newComments.unshift(newPost);
+            newComments.push(newPost);
             this.setState({comments: newComments});
         } else {
             //TODO: log error?
@@ -52,11 +52,11 @@ export default class CommentsThread extends Component {
     render() {
         return (
             <div className='comments'>
-                <CommentNew
-                    onPostSuccess={this.onPostSuccess}
-                />
                 <CommentList
                     comments={this.state.comments}
+                />
+                <CommentNew
+                    onPostSuccess={this.onPostSuccess}
                 />
             </div>
         );

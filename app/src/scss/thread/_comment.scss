@@ -8,13 +8,19 @@
     display: flex;
     flex-direction: column;
     .comment {
-      margin: 3px 0;
+      margin: 3px;
+      border-top: 1px solid $blue4;
+      border-bottom: 1px solid $blue4;
     }
   }
   .comment-new {
+    .comment-new-inline-editor {
+      width: 100%;
+    }
+
     .comment-new-controls {
       display: inline-block;
-      margin: 3px 3px;
+      margin: 10px 3px 3px;
       position: relative;
       transform: translateY(-50%);
       float: right;
@@ -22,7 +28,7 @@
 
         border: 1px solid $blue1;
         border-radius: 1px;
-        padding: 3px 3px;
+        padding: 0 3px 0 3px;
 
         @extend .clickable;
 

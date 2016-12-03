@@ -2,10 +2,11 @@ import React, {Component} from "react";
 import CommentNewControls from "./CommentNewControls";
 
 const InlineEditor = props => (
-    <div>
-
-    </div>
-
+    <input
+        className="comment-new-inline-editor"
+        type="text"
+        onChange={props.onChange}
+    />
 );
 
 export default class CommentNew extends Component {
@@ -22,10 +23,8 @@ export default class CommentNew extends Component {
     }
 
     onValueChanged(value) {
-        //Copy old state, change its value to new val
-        let newState = this.state.slice();
-        newState.value = value;
-        this.setState({newState});
+        this.setState({value});
+        console.log(value);
     }
 
     onIsAnonChanged() {
@@ -43,6 +42,7 @@ export default class CommentNew extends Component {
             content: 'New Comment 999',
             created_by: 'user999'
         };
+
         if (true) {
             this.props.onPostSuccess(r);
         }
@@ -51,11 +51,13 @@ export default class CommentNew extends Component {
     render() {
         return (
             <div className='comment-new'>
+                <InlineEditor
+                    onChange={this.onValueChanged}
+                />
                 <CommentNewControls
                     onSubmit={this.onSubmit}
                     onIsAnonChanged={this.onIsAnonChanged}
                 />
-                <InlineEditor/>
             </div>
         );
     }
