@@ -99,7 +99,7 @@ module.exports = (dao) => {
                 (thread_id, content, is_anon, created_by, created_at, updated_at)
                 VALUES
                 (?, ?, ?, ?, NOW(), NOW())`,
-                [answer.thread_id, answer.content, is_anon account_id],
+                [answer.thread_id, answer.content, is_anon, account_id],
                 (err, results) => {
                     if (err) {
                         reject();
