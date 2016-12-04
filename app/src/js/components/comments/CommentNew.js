@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import CommentNewControls from "./CommentNewControls";
+import axios from "axios";
 
 const InlineEditor = props => (
     <input
