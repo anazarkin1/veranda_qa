@@ -183,28 +183,6 @@ var Controller = (app, dao) => {
             });
 
     });
-
-    /* CreateCourse */
-    // app.post('/createCourse', (req, res) => {
-    //     req.checkBody('courseId').notEmpty().isInt();
-    //     req.checkBody('creater').notEmpty();
-    //     req.checkBody('courseName').notEmpty();
-    //     req.checkBody('description').notEmpty();
-    //     req.checkBody('startDate').notEmpty();
-    //     req.checkBody('finishDate').notEmpty();
-    //
-    //     let promise = req.getValidationResult()
-    //         .then((validation) => (ConditionalPromise(validation.isEmpty())))
-    //         .then(() => (Models.Course.post(req.body, req.session.account_id)))
-    //         .then((answer) => {
-    //             res.json(answer.json());
-    //         })
-    //         .catch(() => {
-    //             res.status(400);
-    //             res.json({error: {reason: 'Bad request.'}});
-    //         });
-    // });
-
 };
 
 module.exports = Controller;
