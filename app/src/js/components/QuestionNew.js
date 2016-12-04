@@ -57,6 +57,7 @@ export default class QuestionNew extends Component {
         content: this.state
       })
       .then(function (response) {
+          //TODO: add some functionality here
         console.log(response);
       })
       .catch(function (error) {

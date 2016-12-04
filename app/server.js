@@ -26,7 +26,11 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
-
+app.use((req, res, next) => {
+    req.session.authenticated = true;
+    req.session.account_id = 1;
+    return next();
+});
 // Data Access Object
 var dao = require('./server/dao');
 

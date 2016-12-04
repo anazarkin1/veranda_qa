@@ -26,6 +26,7 @@ export default class RichEditor extends Component {
             <RichTextEditor
                 value={this.state.value}
                 onChange={this.onChange}
+                placeholder={this.props.placeholder}
             />
         );
     }

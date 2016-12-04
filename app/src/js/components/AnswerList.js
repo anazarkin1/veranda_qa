@@ -6,11 +6,6 @@ export default class AnswerList extends Component {
         super();
     }
 
-
-    componentDidMount() {
-        // TODO: Replace Dummy data.
-    }
-
     render() {
         return (
             <div className='answer-list'>

@@ -44,7 +44,7 @@ module.exports = (dao) => {
             dao.get().query(sqlQuery,
                 [comment_id],
                 (err, results) => {
-                    if (err || results.length === 0) {
+                    if (err) {
                         reject();
                     } else {
                         resolve(new Model(results[0]));
@@ -70,7 +70,7 @@ module.exports = (dao) => {
             `,
                 [thread_id],
                 (err, results) => {
-                    if (err || results.length === 0) {
+                    if (err) {
                         reject();
                     } else {
                         resolve(results.map(result => (new Model(result))));
@@ -101,7 +101,7 @@ module.exports = (dao) => {
             dao.get().query(sqlQuery,
                 [thread_id],
                 (err, results) => {
-                    if (err || results.length === 0) {
+                    if (err) {
                         reject();
                     } else {
                         resolve(results.map(result => (new Model(result))));
@@ -134,7 +134,7 @@ module.exports = (dao) => {
             dao.get().query(sqlQuery,
                 [parseInt(answer_id)],
                 (err, results) => {
-                    if (err || results.length === 0) {
+                    if (err) {
                         reject();
                     } else {
                         resolve(results.map(result => (new Model(result))));
