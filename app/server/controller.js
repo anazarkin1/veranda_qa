@@ -202,6 +202,57 @@ var Controller = (app, dao) => {
             });
     });
 
+    /* Course */
+    app.post('/course', (req, res) => {
+        req.checkBody('name').notEmpty();
+        req.checkBody('description').notEmpty();
+        req.checkBody('start_date').notEmpty().isInt();
+        req.checkBody('finish_date').notEmpty().isInt();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Course.post(req.body, req.session.account_id)))
+            .then((course) => {
+                res.json(course.json());
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
+
+    app.get('/course', (req, res) => {
+        req.checkQuery('course_id').notEmpty().isInt();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Course.get(req.query.course_id, req.session.account_id)))
+            .then((course) => {
+                res.json(course.json());
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
+
+    app.get('/courses', (req, res) => {
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Course.getByAccount(req.session.account_id)))
+            .then((courses) => {
+                let mappedCourses = courses.map(course => course.json());
+                res.json({
+                    count: mappedCourses.length,
+                    courses: mappedCourses
+                });
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
+
     /* Vote */
     app.put('/vote', (req, res) => {
         req.checkBody('thread_id').optional().isInt();
