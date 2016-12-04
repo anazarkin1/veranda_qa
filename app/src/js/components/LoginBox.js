@@ -29,7 +29,7 @@ export default class LoginBox extends Component {
 				password: this.value.password
 			}).then(resp => {
 				if (resp.status == 200) {
-					veranda.redirect('/');
+					veranda.redirect('/createCourse');
 				}
 			}).catch(err => {
 				this.setState({

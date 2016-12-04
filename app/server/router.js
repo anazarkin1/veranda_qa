@@ -69,6 +69,11 @@ var Router = (app, dao) => {
             res.redirect('/error');
         });
     });
+
+    app.get('/createCourse', (req, res) => {
+      res.render('createCourse');
+    });
+
 };
 
 module.exports = Router;
