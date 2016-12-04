@@ -130,10 +130,9 @@ module.exports = (dao) => {
 
             `;
 
-            let answer_id = parseInt(answer_id);
 
             dao.get().query(sqlQuery,
-                [answer_id],
+                [parseInt(answer_id)],
                 (err, results) => {
                     if (err || results.length === 0) {
                         reject();

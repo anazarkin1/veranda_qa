@@ -31,7 +31,6 @@ module.exports = (dao) => {
             thread_id = parseInt(thread_id);
             account_id = parseInt(account_id);
 
-            console.log(thread_id, account_id);
             dao.get().query(`
                 SELECT
                   T.course_id, T.thread_id, T.created_by, T.title, T.content,
