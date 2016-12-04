@@ -38,10 +38,10 @@ export default class CourseBox extends Component {
 			axios.post('/course', {
 				course_id: this.value.courseId,
 				creater: this.value.creater,
-        courseName: this.value.courseName,
+        name: this.value.courseName,
         description: this.value.description,
-        startDate: this.value.startDate,
-        finishDate: this.value.finishDate
+        start_date: this.value.startDate,
+        finish_date: this.value.finishDate
 			}).then(resp => {
 				if (resp.status == 200) {
 					veranda.redirect('/course_dashboard');
