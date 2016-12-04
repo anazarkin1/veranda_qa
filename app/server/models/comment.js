@@ -26,15 +26,9 @@ module.exports = (dao) => {
         });
     };
 
-    Model.get = (thread_id, answer_id) => {
+    Model.getById = (comment_id) => {
         return new Promise((resolve, reject) => {
-            console.log(thread_id, answer_id);
-            thread_id = parseInt(thread_id);
-            if (answer_id != null) {
-                answer_id = parseInt(answer_id);
-            }
-
-            dao.get().query(`
+            let sqlQuery = `
              SELECT T.comment_id, T.thread_id, T.created_by, T.content,
                   UNIX_TIMESTAMP(T.created_at) as created_time,
                   UNIX_TIMESTAMP(T.updated_at) as updated_time, 
@@ -43,9 +37,12 @@ module.exports = (dao) => {
                     SELECT name from Account WHERE Account.account_id = T.created_by
                   ))) as created_by_name
 				  FROM Comment T
-                  WHERE thread_id = ? AND answer_id = ?
-                `,
-                [thread_id, answer_id],
+                  WHERE comment_id = ?
+
+            `;
+            comment_id = parseInt(comment_id);
+            dao.get().query(sqlQuery,
+                [comment_id],
                 (err, results) => {
                     if (err || results.length === 0) {
                         reject();
@@ -56,23 +53,22 @@ module.exports = (dao) => {
         });
     };
 
-    //FIXME: change to work for comments
-    /*Model.getByThread = (account_id) => {
+    Model.getAllByThreadId = (thread_id) => {
         return new Promise((resolve, reject) => {
-            account_id = parseInt(account_id);
-
+            thread_id = parseInt(thread_id);
             dao.get().query(`
-     SELECT T.comment_id, T.thread_id, T.created_by, T.content,
+             SELECT T.comment_id, T.thread_id, T.created_by, T.content,
                   UNIX_TIMESTAMP(T.created_at) as created_time,
-     UNIX_TIMESTAMP(T.updated_at) as updated_time,
-     T.is_anon,
+                  UNIX_TIMESTAMP(T.updated_at) as updated_time, 
+                  T.is_anon,
                   (IF(T.is_anon = 1, '', (
                     SELECT name from Account WHERE Account.account_id = T.created_by
-     ))) as created_by_name
-     FROM Comment T
-     WHERE thread_id = ?
-     `,
-     [thread_id],
+                  ))) as created_by_name
+				  FROM Comment T
+                  WHERE thread_id = ? 
+
+            `,
+                [thread_id],
                 (err, results) => {
                     if (err || results.length === 0) {
                         reject();
@@ -82,44 +78,112 @@ module.exports = (dao) => {
                 });
         });
     };
-     //FIXME: change to work for comments
-    Model.post = (answer, account_id) => {
+
+    Model.getForQuestionByThreadId = (thread_id) => {
+        return new Promise((resolve, reject) => {
+
+            //Used for getting comments of the thread's question(answer_id is null)
+            let sqlQuery = `
+             SELECT T.comment_id, T.thread_id, T.created_by, T.content,
+                  UNIX_TIMESTAMP(T.created_at) as created_time,
+                  UNIX_TIMESTAMP(T.updated_at) as updated_time, 
+                  T.is_anon,
+                  (IF(T.is_anon = 1, '', (
+                    SELECT name from Account WHERE Account.account_id = T.created_by
+                  ))) as created_by_name
+				  FROM Comment T
+                  WHERE thread_id = ? AND answer_id is null
+
+            `;
+
+            thread_id = parseInt(thread_id);
+
+            dao.get().query(sqlQuery,
+                [thread_id],
+                (err, results) => {
+                    if (err || results.length === 0) {
+                        reject();
+                    } else {
+                        resolve(new Model(results[0]));
+                    }
+                });
+
+
+        });
+    };
+
+    Model.getForAnswersByThreadId = (thread_id) => {
+        return new Promise((resolve, reject) => {
+
+            //Used for getting comments of the thread's question(answer_id is null)
+            let sqlQuery = `
+             SELECT T.comment_id, T.thread_id, T.created_by, T.content,
+                  UNIX_TIMESTAMP(T.created_at) as created_time,
+                  UNIX_TIMESTAMP(T.updated_at) as updated_time, 
+                  T.is_anon,
+                  (IF(T.is_anon = 1, '', (
+                    SELECT name from Account WHERE Account.account_id = T.created_by
+                  ))) as created_by_name
+				  FROM Comment T
+                  WHERE thread_id = ? AND answer_id is not null
+
+            `;
+
+            thread_id = parseInt(thread_id);
+
+            dao.get().query(sqlQuery,
+                [thread_id],
+                (err, results) => {
+                    if (err || results.length === 0) {
+                        reject();
+                    } else {
+                        resolve(new Model(results[0]));
+                    }
+                });
+
+        });
+    };
+
+    Model.post = (comment, account_id) => {
         return new Promise((resolve, reject) => {
             account_id = parseInt(account_id);
 
             dao.get().query(`
-                INSERT INTO Answer
-                (thread_id, content, is_anon, created_by)
+                INSERT INTO Comment 
+                (thread_id,answer_id, content, is_anon, created_by)
                 VALUES
-                (?, ?, ?, ?)`,
-                [answer.thread_id, answer.content, answer.is_anon, account_id],
+                (?, ?, ?, ?, ?)`,
+                [comment.thread_id, comment.answer_id, comment.content, comment.is_anon, account_id],
                 (err, results) => {
                     if (err) {
                         reject();
                     } else {
-                        Model.get(results.insertId, account_id).then(resolve).catch(reject);
+                        Model.getById(results.insertId).then(resolve).catch(reject);
                     }
                 });
         });
     };
-     //FIXME: change to work for comments
-    Model.delete = (answer_id, account_id) => {
+
+    Model.delete = (comment_id, account_id) => {
         return new Promise((resolve, reject) => {
-            answer_id = parseInt(answer_id);
+            comment_id = parseInt(comment_id);
+
+            //TODO: add a check that account_id is the auther of the comment or an instructor in this course, if not
+            //TODO: fail sql query
+
             account_id = parseInt(account_id);
 
             dao.get().query(`
-                DELETE FROM Answer WHERE answer_Id = ? AND created_by = ?`,
-                [answer_id, account_id],
+                DELETE FROM Comment WHERE comment_id = ? `,
+                [comment_id],
                 (err, results) => {
                     if (err || results.affectedRows === 0) {
                         reject();
                     } else {
-                        resolve(answer_id);
+                        resolve(comment_id);
                     }
                 });
         });
     };
-     */
     return Model;
 };

@@ -89,24 +89,98 @@ var Controller = (app, dao) => {
     /*  Comment */
 
     app.get('/comments', (req, res) => {
-        let thread_id, answer_id = null;
-        req.checkQuery('thread_id').notEmpty();
-        if (req.query.answer_id) {
-            req.checkQuery('answer_id').notEmpty();
-            answer_id = req.query.answer_id;
+        req.checkQuery('thread_id').notEmpty().isInt();
+        let thread_id = req.query.thread_id;
+
+        if (thread_id != null) {
+            let promise = req.getValidationResult()
+                .then((validation) => (ConditionalPromise(validation.isEmpty())))
+                .then(() => (Models.Comment.getAllByThreadId(thread_id)))
+                .then((comments) => {
+                    res.json(comments.map(comment => comment.json()));
+                })
+                .catch((err) => {
+                    console.log(err)
+                    res.status(400);
+                    res.json({error: {reason: 'Bad request.'}});
+                });
+            return;
         }
-        thread_id = req.query.thread_id;
+
+    });
+    app.get('/comment', (req, res) => {
+        req.checkQuery('comment_id').notEmpty();
+        let comment_id = parseInt(req.query.comment_id);
+
+        if (comment_id != null) {
+            let promise = req.getValidationResult()
+                .then((validation) => (ConditionalPromise(validation.isEmpty())))
+                .then(() => (Models.Comment.getById(comment_id)))
+                .then((comments) => {
+                    res.json(comments);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    res.status(400);
+                    res.json({error: {reason: 'Bad request.'}});
+                });
+            return;
+
+        }
+    });
+
+    app.post('/comment', (req, res) => {
+        req.checkBody('thread_id').notEmpty().isInt();
+        req.checkBody('content').notEmpty();
+        req.checkBody('is_anon').notEmpty();
+
+        //answer_id is optional
+        let answer_id = (Object.keys(req.body).includes("answer_id")) ? parseInt(req.body.answer_id) : null;
+        let created_by = parseInt(req.session.account_id);
+
+        let comment = {
+            thread_id: parseInt(req.body.thread_id),
+            answer_id: answer_id,
+            content: req.body.content,
+            is_anon: req.body.is_anon,
+        };
+
 
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
-            .then(() => (Models.Comment.get(thread_id, answer_id)))
+            .then(() => (Models.Comment.post(comment, created_by)))
             .then((comments) => {
-                res.json(comments.map(comment => comment.json()));
+                res.json(comments);
             })
-            .catch(() => {
+            .catch((err) => {
+                console.log(err);
                 res.status(400);
                 res.json({error: {reason: 'Bad request.'}});
             });
+        return;
+
+    });
+
+
+    app.delete('/comment/:id', (req, res) => {
+        req.checkParams('id').notEmpty().isInt();
+        let comment_id = parseInt(req.params.id);
+        let account_id = parseInt(req.session.account_id);
+
+        if (comment_id != null) {
+            let promise = req.getValidationResult()
+                .then((validation) => (ConditionalPromise(validation.isEmpty())))
+                .then(() => (Models.Comment.delete(comment_id, account_id)))
+                .then((comments) => {
+                    res.json({status: 200});
+                })
+                .catch(() => {
+                    res.status(400);
+                    res.json({error: {reason: 'Bad request.'}});
+                });
+            return;
+
+        }
     });
 };
 
