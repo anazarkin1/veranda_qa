@@ -30,35 +30,35 @@ export default class CourseBox extends Component {
 
 	createCourse() {
     alert("Course Created!");
-		// if (this.value.CourseId.length > 0
-    //     && this.value.CreaterChange.length > 0
-    //     && this.value.CourseNameChange.length > 0
-    //     && this.value.DescriptionChange.length > 0
-    //     && this.value.StartDateChange.length > 0
-    //     && this.value.FinishDateChange.length > 0) {
-		// 	axios.post('/createCourse', {
-		// 		course_id: this.value.CourseId,
-		// 		creater: this.value.Creater,
-    //     courseName: this.value.CourseName,
-    //     description: this.value.Description,
-    //     startDate: this.value.StartDate,
-    //     finishDate: this.value.FinishDate
-		// 	}).then(resp => {
-		// 		if (resp.status == 200) {
-		// 			veranda.redirect('/course_dashboard');
-		// 		}
-		// 	}).catch(err => {
-		// 		this.setState({
-		// 			error: true,
-		// 			errorMessage: err.response.data.error.reason
-		// 		});
-		// 	});
-		// } else {
-		// 	this.setState({
-		// 		error: true,
-		// 		errorMessage: 'Please fill in all fields.'
-		// 	});
-		// }
+		if (this.value.CourseId.length > 0
+        && this.value.CreaterChange.length > 0
+        && this.value.CourseNameChange.length > 0
+        && this.value.DescriptionChange.length > 0
+        && this.value.StartDateChange.length > 0
+        && this.value.FinishDateChange.length > 0) {
+			axios.post('/createCourse', {
+				course_id: this.value.CourseId,
+				creater: this.value.Creater,
+        courseName: this.value.CourseName,
+        description: this.value.Description,
+        startDate: this.value.StartDate,
+        finishDate: this.value.FinishDate
+			}).then(resp => {
+				if (resp.status == 200) {
+					veranda.redirect('/course_dashboard');
+				}
+			}).catch(err => {
+				this.setState({
+					error: true,
+					errorMessage: err.response.data.error.reason
+				});
+			});
+		} else {
+			this.setState({
+				error: true,
+				errorMessage: 'Please fill in all fields.'
+			});
+		}
 	}
 
 	onIdChange(e) {

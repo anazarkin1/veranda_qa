@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 
 export default class SignupBox extends Component {
 	constructor() {
@@ -28,70 +29,91 @@ export default class SignupBox extends Component {
 		this.onPasswordChange = this.onPasswordChange.bind(this);
 		this.onNameChange = this.onNameChange.bind(this);
 		this.onUniveristyChange = this.onUniveristyChange.bind(this);
+		this.clearError = this.clearError.bind(this);
 	}
 
-	// signup() {
-	// 	if (this.value.mode == 'student') {
-	// 		if (this.value.email && this.value.password && this.value.name) {
-	// 			axios.post('/account', {
-	// 				email: this.value.email,
-	// 				password: this.value.password,
-	// 				name: this.value.name,
-	// 				mode: this.value.mode
-	// 			}).then(resp => {
-	// 				if (resp.status == 200) {
-	// 					veranda.redirect('/login');
-	// 				}
-	// 			}).catch(err => {
-	// 				error: true,
-					// errorMessage: err.response.data.error.reason
-	// 			});
-	// 		}
-	// 	}
-	// 	else if (this.value.mode == 'instructor') {
-	// 		if (this.value.email && this.value.password && this.value.name && this.value.univeristy) {
-	// 			axios.post('/account', {
-	// 				email: this.value.email,
-	// 				password: this.value.password,
-	// 				name: this.value.name,
-	// 				univerisity: this.value.university,
-	// 				mode: this.value.mode
-	// 			}).then(resp => {
-	// 				if (resp.status == 200) {
-	// 					veranda.redirect('/login');
-	// 				}
-	// 			}).catch(err => {
-	// 				console.log('Please check your personal info is filled correctly.')
-	// 			});
-	// 		}
-	// 	} else {
-	// 		this.setSate({
-	// 			error: true,
-				// errorMessage: 'Please fill in all fields.'
-	// 		});
-	// 	}
- // 	}
+	signup() {
+		alert('hi' + this.state.mode);
+		if (this.state.mode == 'student') {
+			if (this.value.email && this.value.password && this.value.name) {
+				axios.post('/account', {
+					email: this.value.email,
+					password: this.value.password,
+					name: this.value.name,
+					mode: this.state.mode
+				}).then(resp => {
+					if (resp.status == 200) {
+						veranda.redirect('/login');
+					}
+				}).catch(err => {
+					this.setState({
+					error: true,
+					errorMessage: err.response.data.error.reason
+				});
+				});
+			}
+		}
+		else if (this.state.mode == 'instructor') {
+			if (this.value.email && this.value.password && this.value.name && this.value.univeristy) {
+				axios.post('/account', {
+					email: this.value.email,
+					password: this.value.password,
+					name: this.value.name,
+					univerisity: this.value.university,
+					mode: this.state.mode
+				}).then(resp => {
+					if (resp.status == 200) {
+						veranda.redirect('/login');
+					}
+				}).catch(err => {
+					console.log('Please check your personal info is filled correctly.')
+				});
+			}
+		} else {
+			this.setState({
+				error: true,
+				errorMessage: err.response.data.error.reason
+			});
+		}
+ 	}
 
 	onEmailChange(e) {
 		this.value.email = e.target.value;
+		this.clearError();
+	}
+
+	onPasswordChange(e) {
+		this.value.password = e.target.value;
+		this.clearError();
 	}
 
 	onNameChange(e) {
 		this.value.name = e.target.value;
+		this.clearError();
 	}
 
 	onUniveristyChange(e) {
 		this.value.univeristy = e.target.value;
+		this.clearError();
 	}
 
 	switchToStudent() {
 		this.setState({ mode: 'student' });
+		this.clearError();
 	}
 
 	switchToInstructor() {
 		this.setState({ mode: 'instructor' });
+		this.clearError();
 	}
 
+	clearError() {
+		if (this.state.error) {
+			this.setState({
+				error: false
+			});
+		}
+	}
 
 	render() {
 		return (
@@ -157,6 +179,7 @@ export default class SignupBox extends Component {
 						<div className='form-group form-actions'>
 							<button
 								className='btn enter-button right'
+								onClick={this.signup}
 							>Signup</button>
 						</div>
 					</div>
