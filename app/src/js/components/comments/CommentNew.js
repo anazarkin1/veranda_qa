@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import CommentNewControls from "./CommentNewControls";
+import axios from "axios";
 
 const InlineEditor = props => (
     <input
@@ -32,20 +33,17 @@ export default class CommentNew extends Component {
     }
 
     onSubmit() {
-        //TODO: replace dummy ajax result var 'r'
-        // TODO:send ajax post and check return value
-
-
-        let r = {
-            id: 99,
-            created_at: ((+new Date()) / 1000) - 1000,
-            content: 'New Comment 999',
-            created_by: 'user999'
-        };
-
-        if (true) {
-            this.props.onPostSuccess(r);
-        }
+        axios.post('/comment', {
+            thread_id: this.props.thread_id,
+            content: this.state.value,
+            is_anon: this.state.is_anon
+        })
+            .then(function (response) {
+                this.props.onPostSuccess(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
 
     render() {

@@ -306,6 +306,110 @@ var Controller = (app, dao) => {
             });
 
     });
+
+    /*  Comment */
+
+    app.get('/comments', (req, res) => {
+        req.checkQuery('thread_id').notEmpty().isInt();
+        let thread_id = req.query.thread_id;
+
+        if (thread_id != null) {
+            let promise = req.getValidationResult()
+                .then((validation) => (ConditionalPromise(validation.isEmpty())))
+                .then(() => (Models.Comment.getAllByThreadId(thread_id)))
+                .then((comments) => {
+                    res.json(
+                        {
+                            'comments': comments.map(comment => comment.json()),
+                            'count': comments.length,
+                            'thread_id': thread_id
+                        }
+                    );
+                })
+                .catch((err) => {
+                    console.error(err)
+                    res.status(400);
+                    res.json({error: {reason: 'Bad request.'}});
+                });
+            return;
+        }
+
+    });
+    app.get('/comment', (req, res) => {
+        req.checkQuery('comment_id').notEmpty();
+        let comment_id = parseInt(req.query.comment_id);
+
+        if (comment_id != null) {
+            let promise = req.getValidationResult()
+                .then((validation) => (ConditionalPromise(validation.isEmpty())))
+                .then(() => (Models.Comment.getById(comment_id)))
+                .then((comments) => {
+                    res.json(comments);
+                })
+                .catch((err) => {
+                    console.error(err);
+                    res.status(400);
+                    res.json({error: {reason: 'Bad request.'}});
+                });
+            return;
+
+        }
+    });
+
+    app.post('/comment', (req, res) => {
+        req.checkBody('thread_id').notEmpty().isInt();
+        req.checkBody('content').notEmpty();
+        req.checkBody('is_anon').notEmpty();
+
+        //answer_id is optional
+        let answer_id = (Object.keys(req.body).includes("answer_id")) ? parseInt(req.body.answer_id) : null;
+        let created_by = parseInt(req.session.account_id);
+
+        let comment = {
+            thread_id: parseInt(req.body.thread_id),
+            answer_id: answer_id,
+            content: req.body.content,
+            is_anon: req.body.is_anon,
+        };
+
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Comment.post(comment, created_by)))
+            .then((comments) => {
+                res.json(comments);
+            })
+            .catch((err) => {
+                console.error(err);
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+        return;
+
+    });
+
+
+    app.delete('/comment/:id', (req, res) => {
+        req.checkParams('id').notEmpty().isInt();
+        let comment_id = parseInt(req.params.id);
+        let account_id = parseInt(req.session.account_id);
+
+        if (comment_id != null) {
+            let promise = req.getValidationResult()
+                .then((validation) => (ConditionalPromise(validation.isEmpty())))
+                .then(() => (Models.Comment.delete(comment_id, account_id)))
+                .then((comments) => {
+                    res.json({status: 200});
+                })
+                .catch((err) => {
+                    console.error(err);
+                    res.status(400);
+                    res.json({error: {reason: 'Bad request.'}});
+                });
+            return;
+
+        }
+    });
 };
 
 module.exports = Controller;

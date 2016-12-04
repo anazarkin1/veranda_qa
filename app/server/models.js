@@ -9,7 +9,9 @@ var models = (dao) => (
         Course: require('./models/course')(dao),
         Answer: require('./models/answer')(dao),
         Vote: require('./models/vote')(dao),
-        Thread: require('./models/thread')(dao)
+        Thread: require('./models/thread')(dao),
+        Comment: require('./models/comment')(dao)
+
     }
 );
 
