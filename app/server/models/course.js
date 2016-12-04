@@ -82,5 +82,51 @@ module.exports = (dao) => {
         });
     };
 
+    Model.getByAccount = (account_id) => {
+        return new Promise((resolve, reject) => {
+            account_id = parseInt(account_id);
+
+            dao.get().query(`
+                SELECT T.course_id, T.name, T.description, T.created_by,
+                       UNIX_TIMESTAMP(T.start_date) as start_unix,
+                       UNIX_TIMESTAMP(T.finish_date) as finish_unix
+                FROM Course T
+                WHERE EXISTS (
+                    SELECT 1 FROM CourseInstructor CI WHERE CI.course_id = T.course_id AND CI.account_id = ?
+                ) OR EXISTS (
+                    SELECT 1 FROM CourseStudent CS WHERE CS.course_id = T.course_id AND CS.account_id = ?
+                )
+                ORDER BY T.name ASC`,
+                [account_id, account_id],
+                (err, results) => {
+                    if (err || results.length === 0) {
+                        reject();
+                    } else {
+                        resolve(results.map(result => (new Model(result))));
+                    }
+                });
+        });
+    };
+
+    Model.post = (course, account_id) => {
+        return new Promise((resolve, reject) => {
+            account_id = parseInt(account_id);
+            dao.get().query(`
+                INSERT INTO Course
+                (created_by, name, description, start_date, finish_date)
+                VALUES
+                (?, ?, ?, FROM_UNIXTIME(?), FROM_UNIXTIME(?))`,
+                [account_id, course.name, course.description, course.start_date, course.finish_date],
+                (err, results) => {
+                    if (err) {
+                        reject();
+                    } else {
+                        Model.get(results.insertId, account_id).then(resolve).catch(reject);
+                    }
+                });
+        });
+    };
+
+
     return Model;
 };
