@@ -9,6 +9,7 @@ module.exports = (dao) => {
         this.created_by_name = data.created_by_name;
         this.is_anon = data.is_anon;
         this.content = data.content;
+        this.title = data.title;
         this.updated_at = data.updated_time;
         this.created_at = data.created_time;
 
@@ -19,6 +20,7 @@ module.exports = (dao) => {
             created_by_name: this.created_by_name,
             is_anon: this.is_anon,
             content: this.content,
+            title: this.title,
             updated_at: this.updated_at,
             created_at: this.created_at
         });
@@ -29,9 +31,10 @@ module.exports = (dao) => {
             thread_id = parseInt(thread_id);
             account_id = parseInt(account_id);
 
+            console.log(thread_id, account_id);
             dao.get().query(`
                 SELECT
-                  T.course_id, T.thread_id, T.created_by, T.content,
+                  T.course_id, T.thread_id, T.created_by, T.title, T.content,
                   UNIX_TIMESTAMP(T.created_at) as created_time,
                   UNIX_TIMESTAMP(T.updated_at) as updated_time, T.is_anon,
                   (IF(T.is_anon = 1, '', (
@@ -40,7 +43,7 @@ module.exports = (dao) => {
                   (SELECT COUNT(*) FROM ThreadVote WHERE
                     ThreadVote.thread_id = T.thread_id) as votes,
                   (SELECT COUNT(*) FROM ThreadVote WHERE
-                    ThreadVote.created_by = ? AND
+                    ThreadVote.voted_by = ? AND
                     ThreadVote.thread_id = T.thread_id) as voted
                   FROM Thread T
                   WHERE thread_id = ?`,
@@ -62,7 +65,7 @@ module.exports = (dao) => {
 
             dao.get().query(`
                 SELECT
-                  T.course_id, T.thread_id, T.created_by, T.content,
+                  T.course_id, T.thread_id, T.created_by, T.title, T.content,
                   UNIX_TIMESTAMP(T.created_at) as created_time,
                   UNIX_TIMESTAMP(T.updated_at) as updated_time, T.is_anon,
                   (IF(T.is_anon = 1, '', (
@@ -71,7 +74,7 @@ module.exports = (dao) => {
                   (SELECT COUNT(*) FROM ThreadVote WHERE
                     ThreadVote.thread_id = T.thread_id) as votes,
                   (SELECT COUNT(*) FROM ThreadVote WHERE
-                    ThreadVote.created_by = ? AND
+                    ThreadVote.voted_by = ? AND
                     ThreadVote.thread_id = T.thread_id) as voted
                   FROM Thread T
                   WHERE course_id = ?
@@ -93,10 +96,10 @@ module.exports = (dao) => {
             let is_anon = thread.is_anon === true || thread.is_anon === 1;
             dao.get().query(`
                 INSERT INTO Thread
-                (course_id, content, is_anon, created_by, created_at, updated_at)
+                (course_id, content, title, is_anon, created_by, created_at, updated_at)
                 VALUES
-                (?, ?, ?, ?, NOW(), NOW())`,
-                [thread.course_id, thread.content, is_anon, account_id],
+                (?, ?, ?, ?, ?, NOW(), NOW())`,
+                [thread.course_id, thread.content, thread.title, is_anon, account_id],
                 (err, results) => {
                     if (err) {
                         reject();

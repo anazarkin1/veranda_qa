@@ -12,8 +12,8 @@ export default class CommentsThread extends Component {
             <div className='comment-list'>
                 {this.props.comments.map(comment => (
                     <Comment
-                        key={comment.id}
-                        comment_id={comment.id}
+                        key={comment.comment_id}
+                        comment_id={comment.comment_id}
                         content={comment.content}
                         created_by={comment.created_by_name}
                     />

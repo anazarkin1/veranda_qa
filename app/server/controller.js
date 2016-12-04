@@ -52,13 +52,13 @@ var Controller = (app, dao) => {
     app.post('/account', (req, res) => {
         req.checkBody('email', 'Email address required.').notEmpty().isEmail();
         req.checkBody('password').notEmpty();
-        req.checkBody('name','Name required.').notEmpty();
+        req.checkBody('name', 'Name required.').notEmpty();
 
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
             .then(() => (Models.Account.post(req.body)))
             .then(() => {
-                res.json({ status: 200 });
+                res.json({status: 200});
             })
             .catch(() => {
                 res.status(401);
@@ -106,7 +106,7 @@ var Controller = (app, dao) => {
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
             .then(() => (Models.Answer.delete(req.params.id, req.session.account_id)))
             .then((answer_id) => {
-                res.json({ status: 200 });
+                res.json({status: 200});
             })
             .catch(() => {
                 res.status(400);
@@ -161,7 +161,8 @@ var Controller = (app, dao) => {
             .then((thread) => {
                 res.json(thread.json());
             })
-            .catch(() => {
+            .catch((err) => {
+                console.error(err);
                 res.status(400);
                 res.json({error: {reason: 'Bad request.'}});
             });
@@ -174,7 +175,7 @@ var Controller = (app, dao) => {
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
             .then(() => (Models.Thread.delete(req.params.id, req.session.account_id)))
             .then((thread_id) => {
-                res.json({ status: 200 });
+                res.json({status: 200});
             })
             .catch(() => {
                 res.status(400);
@@ -280,7 +281,7 @@ var Controller = (app, dao) => {
 
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
-            .then(() => (Models.Vote.delete({ thread_id: req.params.id }, req.session.account_id)))
+            .then(() => (Models.Vote.delete({thread_id: req.params.id}, req.session.account_id)))
             .then((vote) => {
                 res.json(vote.json());
             })
@@ -296,7 +297,7 @@ var Controller = (app, dao) => {
 
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
-            .then(() => (Models.Vote.delete({ answer_id: req.params.id }, req.session.account_id)))
+            .then(() => (Models.Vote.delete({answer_id: req.params.id}, req.session.account_id)))
             .then((vote) => {
                 res.json(vote.json());
             })
@@ -310,13 +311,12 @@ var Controller = (app, dao) => {
     /*  Comment */
 
     app.get('/comments', (req, res) => {
-        req.checkQuery('thread_id').notEmpty().isInt();
-        let thread_id = req.query.thread_id;
+        if (Object.keys(req.query).includes("thread_id")) {
+            let thread_id = parseInt(req.query.thread_id);
 
-        if (thread_id != null) {
             let promise = req.getValidationResult()
                 .then((validation) => (ConditionalPromise(validation.isEmpty())))
-                .then(() => (Models.Comment.getAllByThreadId(thread_id)))
+                .then(() => (Models.Comment.getForQuestionByThreadId(thread_id)))
                 .then((comments) => {
                     res.json(
                         {
@@ -332,6 +332,31 @@ var Controller = (app, dao) => {
                     res.json({error: {reason: 'Bad request.'}});
                 });
             return;
+        } else if (Object.keys(req.query).includes("answer_id")) {
+
+            let answer_id = parseInt(req.query.answer_id);
+
+            let promise = req.getValidationResult()
+                .then((validation) => (ConditionalPromise(validation.isEmpty())))
+                .then(() => (Models.Comment.getAllByThreadId(answer_id)))
+                .then((comments) => {
+                    res.json(
+                        {
+                            'comments': comments.map(comment => comment.json()),
+                            'count': comments.length,
+                            'answer_id': answer_id
+                        }
+                    );
+                })
+                .catch((err) => {
+                    console.error(err)
+                    res.status(400);
+                    res.json({error: {reason: 'Bad request.'}});
+                });
+        } else {
+            res.status(400);
+            res.json({error: {reason: 'Bad request.'}});
+
         }
 
     });
@@ -371,7 +396,6 @@ var Controller = (app, dao) => {
             content: req.body.content,
             is_anon: req.body.is_anon,
         };
-
 
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))

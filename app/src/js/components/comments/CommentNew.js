@@ -11,8 +11,8 @@ const InlineEditor = props => (
 );
 
 export default class CommentNew extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             value: "",
@@ -33,13 +33,15 @@ export default class CommentNew extends Component {
     }
 
     onSubmit() {
-        axios.post('/comment', {
+        let newComment = {
             thread_id: this.props.thread_id,
             content: this.state.value,
             is_anon: this.state.is_anon
-        })
+
+        };
+        axios.post('/comment', newComment)
             .then(function (response) {
-                this.props.onPostSuccess(response);
+                this.props.onPostSuccess(response.data);
             })
             .catch(function (error) {
                 console.log(error);
