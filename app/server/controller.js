@@ -57,6 +57,9 @@ var Controller = (app, dao) => {
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
             .then(() => (Models.Account.post(req.body)))
+            .then(() => {
+                res.json({ status: 200 });
+            })
             .catch(() => {
                 res.status(401);
                 res.json({error: {reason: 'Email already exists.'}});
@@ -96,12 +99,12 @@ var Controller = (app, dao) => {
             });
     });
 
-    app.delete('/answer', (req, res) => {
-        req.checkBody('answer_id').notEmpty().isInt();
+    app.delete('/answer/:id', (req, res) => {
+        req.checkParams('id').notEmpty().isInt();
 
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
-            .then(() => (Models.Answer.delete(req.body.answer_id, req.session.account_id)))
+            .then(() => (Models.Answer.delete(req.params.id, req.session.account_id)))
             .then((answer_id) => {
                 res.json({ status: 200 });
             })
@@ -131,6 +134,75 @@ var Controller = (app, dao) => {
             });
     });
 
+    /* Thread */
+    app.post('/thread', (req, res) => {
+        req.checkBody('course_id').notEmpty().isInt();
+        req.checkBody('content').notEmpty();
+        req.checkBody('is_anon').notEmpty();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Thread.post(req.body, req.session.account_id)))
+            .then((thread) => {
+                res.json(thread.json());
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
+
+    app.get('/thread', (req, res) => {
+        req.checkQuery('thread_id').notEmpty().isInt();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Thread.get(req.query.thread_id, req.session.account_id)))
+            .then((thread) => {
+                res.json(thread.json());
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
+
+    app.delete('/thread/:id', (req, res) => {
+        req.checkParams('id').notEmpty().isInt();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Thread.delete(req.params.id, req.session.account_id)))
+            .then((thread_id) => {
+                res.json({ status: 200 });
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
+
+    app.get('/threads', (req, res) => {
+        req.checkQuery('course_id').notEmpty().isInt();
+
+        let promise = req.getValidationResult()
+            .then((validation) => (ConditionalPromise(validation.isEmpty())))
+            .then(() => (Models.Thread.getByThread(req.query.course_id, req.session.account_id)))
+            .then((threads) => {
+                let mappedThreads = threads.map(thread => thread.json());
+                res.json({
+                    thread_id: req.query.thread_id,
+                    count: mappedThreads.length,
+                    threads: mappedThreads
+                });
+            })
+            .catch(() => {
+                res.status(400);
+                res.json({error: {reason: 'Bad request.'}});
+            });
+    });
+
+    /* Vote */
     app.put('/vote', (req, res) => {
         req.checkBody('thread_id').optional().isInt();
         req.checkBody('answer_id').optional().isInt();
