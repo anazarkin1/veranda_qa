@@ -306,7 +306,6 @@ var Controller = (app, dao) => {
             });
 
     });
-
 };
 
 module.exports = Controller;
