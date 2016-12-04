@@ -104,7 +104,7 @@ module.exports = (dao) => {
                     if (err || results.length === 0) {
                         reject();
                     } else {
-                        resolve(new Model(results[0]));
+                        resolve(results.map(result => (new Model(result))));
                     }
                 });
 
@@ -112,7 +112,8 @@ module.exports = (dao) => {
         });
     };
 
-    Model.getForAnswersByThreadId = (thread_id) => {
+
+    Model.getByAnswerId = (answer_id) => {
         return new Promise((resolve, reject) => {
 
             //Used for getting comments of the thread's question(answer_id is null)
@@ -125,25 +126,24 @@ module.exports = (dao) => {
                     SELECT name from Account WHERE Account.account_id = T.created_by
                   ))) as created_by_name
 				  FROM Comment T
-                  WHERE thread_id = ? AND answer_id is not null
+                  WHERE answer_id = ?
 
             `;
 
-            thread_id = parseInt(thread_id);
+            let answer_id = parseInt(answer_id);
 
             dao.get().query(sqlQuery,
-                [thread_id],
+                [answer_id],
                 (err, results) => {
                     if (err || results.length === 0) {
                         reject();
                     } else {
-                        resolve(new Model(results[0]));
+                        resolve(results.map(result => (new Model(result))));
                     }
                 });
 
         });
     };
-
     Model.post = (comment, account_id) => {
         return new Promise((resolve, reject) => {
             account_id = parseInt(account_id);

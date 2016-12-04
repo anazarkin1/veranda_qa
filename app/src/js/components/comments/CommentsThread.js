@@ -16,7 +16,14 @@ export default class CommentsThread extends Component {
     }
 
     componentDidMount() {
-        axios.get('/comments?thread_id=' + this.props.thread_id)
+        let url = '/comments?';
+        if (this.props.answer_id) {
+            url += 'answer_id=' + this.props.answer_id;
+        } else if (this.props.thread_id) {
+            url += 'thread_id=' + this.props.thread_id;
+
+        }
+        axios.get(url)
             .then(resp => {
                 this.setState({comments: resp.data.comments});
             })
@@ -41,11 +48,13 @@ export default class CommentsThread extends Component {
     render() {
         return (
             <div className='comments'>
+                <span>Comments:</span><br/>
                 <CommentList
                     comments={this.state.comments}
                 />
                 <CommentNew
                     onPostSuccess={this.onPostSuccess}
+                    thread_id={this.props.thread_id}
                 />
             </div>
         );

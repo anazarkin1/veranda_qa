@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import UpvoteButton from "./UpvoteButton";
 import CommentsThread from "./comments/CommentsThread";
 import ModerationTools from "./ModerationTools";
-import axios from 'axios';
-import classNames from 'classnames';
+import axios from "axios";
+import classNames from "classnames";
 
 export default class Answer extends Component {
     constructor(props) {
@@ -12,7 +12,7 @@ export default class Answer extends Component {
         this.state = {
             votes: props.votes,
             voted: props.voted,
-            hideAnswer : false
+            hideAnswer: false
         };
 
         this.onVote = this.onVote.bind(this);
@@ -41,18 +41,18 @@ export default class Answer extends Component {
     }
 
     deleteAnswer() {
-      axios.delete('/answer/' + this.props.id).then((resp) => {
-          this.setState({
-            hideAnswer : true
-          });
+        axios.delete('/answer/' + this.props.id).then((resp) => {
+            this.setState({
+                hideAnswer: true
+            });
         }).catch(function (err) {
-          console.log(err);
+            console.log(err);
         });
     }
 
     render() {
         return (
-            <div className={classNames('answer', {hidden : this.state.hideAnswer})}>
+            <div className={classNames('answer', {hidden: this.state.hideAnswer})}>
                 <div className="votecount">{this.state.votes}</div>
                 <UpvoteButton
                     id={this.props.id}
@@ -74,11 +74,13 @@ export default class Answer extends Component {
                     Time Modified: {this.props.updated_at}
                 </div>
                 <br/><br/>
-                Comments:<br/>
-                <CommentsThread/>
+                <CommentsThread
+                    thread_id={this.props.thread_id}
+                    answer_id={this.props.id}
+                />
                 <ModerationTools
-                answer_id={this.props.id}
-                hideAnswer={this.deleteAnswer}
+                    answer_id={this.props.id}
+                    hideAnswer={this.deleteAnswer}
                 />
             </div>
         );
