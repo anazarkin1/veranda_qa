@@ -3,6 +3,7 @@ import UpvoteButton from "./UpvoteButton";
 import CommentsThread from "./comments/CommentsThread";
 import ModerationTools from "./ModerationTools";
 import axios from 'axios';
+import classNames from 'classnames';
 
 export default class Answer extends Component {
     constructor(props) {
@@ -10,11 +11,13 @@ export default class Answer extends Component {
 
         this.state = {
             votes: props.votes,
-            voted: props.voted
+            voted: props.voted,
+            hideAnswer : false
         };
 
         this.onVote = this.onVote.bind(this);
         this.onUnvote = this.onUnvote.bind(this);
+        this.deleteAnswer = this.deleteAnswer.bind(this);
     }
 
     onVote() {
@@ -37,9 +40,20 @@ export default class Answer extends Component {
         });
     }
 
+    deleteAnswer() {
+      axios.delete('/answer/' + this.props.id).then((resp) => {
+          this.setState({
+            hideAnswer : true
+          });
+        }).catch(function (err) {
+          console.log(err);
+        });
+    }
+
     render() {
         return (
-            <div className='answer'>
+            <div className={classNames('answer', {hidden : this.state.hideAnswer})}>
+                <div className="votecount">{this.state.votes}</div>
                 <UpvoteButton
                     id={this.props.id}
                     voted={this.state.voted}
@@ -50,19 +64,22 @@ export default class Answer extends Component {
                 <div className="createdby">
                     Created by: {this.props.created_by_name}
                 </div>
-                <br/>
+                <br/><br/>
                 {this.props.content}
-                <br/>
+                <br/><br/>
                 <div className="timeposted">
                     Time Posted: {this.props.created_at}
                 </div>
                 <div className="timemodified">
                     Time Modified: {this.props.updated_at}
                 </div>
-                <br/>
+                <br/><br/>
                 Comments:<br/>
                 <CommentsThread/>
-                <ModerationTools/>
+                <ModerationTools
+                answer_id={this.props.id}
+                hideAnswer={this.deleteAnswer}
+                />
             </div>
         );
     }

@@ -10,9 +10,18 @@
     margin: 15px 0;
     min-height: 200px;
 
+    &.hidden {
+      display: none;
+    }
+
+    .votecount {
+      float : left;
+    }
+
     .upvotebutton {
 
       float : left;
+      margin-left: 1%;
       margin-right: 1%;
 
       &:hover {
