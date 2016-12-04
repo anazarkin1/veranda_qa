@@ -5,11 +5,11 @@ export default class CourseBox extends Component {
 	constructor() {
 		super();
 
-		// this.state = {
-		// 	error: false,
-		// 	errorMessage: ''
-		// };
-    //
+    this.state = {
+			error: false,
+			errorMessage: ''
+		};
+
 		this.value = {
 			courseId: '',
 			creater: '',
@@ -29,20 +29,19 @@ export default class CourseBox extends Component {
 	}
 
 	createCourse() {
-    alert("Course Created!");
-		if (this.value.CourseId.length > 0
-        && this.value.CreaterChange.length > 0
-        && this.value.CourseNameChange.length > 0
-        && this.value.DescriptionChange.length > 0
-        && this.value.StartDateChange.length > 0
-        && this.value.FinishDateChange.length > 0) {
-			axios.post('/createCourse', {
-				course_id: this.value.CourseId,
-				creater: this.value.Creater,
-        courseName: this.value.CourseName,
-        description: this.value.Description,
-        startDate: this.value.StartDate,
-        finishDate: this.value.FinishDate
+		if (this.value.courseId.length > 0
+        && this.value.creater.length > 0
+        && this.value.courseName.length > 0
+        && this.value.description.length > 0
+        && this.value.startDate.length > 0
+        && this.value.finishDate.length > 0) {
+			axios.post('/course', {
+				course_id: this.value.courseId,
+				creater: this.value.creater,
+        courseName: this.value.courseName,
+        description: this.value.description,
+        startDate: this.value.startDate,
+        finishDate: this.value.finishDate
 			}).then(resp => {
 				if (resp.status == 200) {
 					veranda.redirect('/course_dashboard');
@@ -61,7 +60,7 @@ export default class CourseBox extends Component {
 		}
 	}
 
-	onIdChange(e) {
+	onCourseIdChange(e) {
 		this.value.courseId = e.target.value;
 		this.clearError();
 	}
