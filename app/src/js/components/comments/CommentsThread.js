@@ -27,7 +27,7 @@ export default class CommentsThread extends Component {
     }
 
     onPostSuccess(newPost) {
-        //add newPost to the front ofanswersList
+        //add newPost to the front comment list
         if (Object.keys(newPost).length > 0) {
             let newComments = this.state.comments.slice()
             newComments.push(newPost);

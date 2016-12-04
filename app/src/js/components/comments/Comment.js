@@ -24,7 +24,7 @@ export default class Comment extends Component {
 
     render() {
         return (
-            <div className={classNames('answer', {hidden: this.state.hideAnswer})}>
+            <div className={classNames('comment', {hidden: this.state.hideComment})}>
                 <div className="createdby">
                     Created by: {this.props.created_by_name}
                 </div>
