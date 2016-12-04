@@ -1,10 +1,6 @@
 import React, {Component} from "react";
+import Comment from "./Comment";
 
-const Comment = props => {
-    return (
-        <div className='comment'>{props.text}</div>
-    );
-};
 
 export default class CommentsThread extends Component {
     constructor() {
@@ -17,8 +13,9 @@ export default class CommentsThread extends Component {
                 {this.props.comments.map(comment => (
                     <Comment
                         key={comment.id}
-                        id={comment.id}
-                        text={comment.content}
+                        comment_id={comment.id}
+                        content={comment.content}
+                        created_by={comment.created_by_name}
                     />
                 ))}
             </div>

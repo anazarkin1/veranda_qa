@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import CommentNew from "./CommentNew";
 import CommentList from "./CommentList";
+import axios from "axios";
 
 /*
  Wrapper around CommentNew and CommentList
@@ -9,32 +10,20 @@ export default class CommentsThread extends Component {
     constructor() {
         super();
         this.state = {
-            comments: [
-                {
-                    id: 1,
-                    created_at: ((+new Date()) / 1000) - 1000,
-                    content: 'Content of comment 1',
-                    created_by: 'user1'
-                },
-                {
-                    id: 2,
-                    created_at: ((+new Date()) / 1000) - 5000,
-                    content: 'Content of comment 2',
-                    created_by: 'user1'
-                },
-                {
-                    id: 3,
-                    created_at: ((+new Date()) / 1000) - 10000,
-                    content: 'COntent of comment 3',
-                    created_by: 'user2'
-                }
-            ]
+            comments: []
         };
         this.onPostSuccess = this.onPostSuccess.bind(this);
     }
 
     componentDidMount() {
-        //TODO:Fetch all answers for this thread and this.setState with them
+        axios.get('/comments?thread_id=' + this.props.thread_id)
+            .then(resp => {
+                this.setState({comments: resp.data.comments});
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
     }
 
     onPostSuccess(newPost) {
