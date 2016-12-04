@@ -80,7 +80,8 @@ var Controller = (app, dao) => {
             .then((answers) => {
                 res.json(answers.map(answer => answer.json()));
             })
-            .catch(() => {
+            .catch((err) => {
+                console.error(err);
                 res.status(400);
                 res.json({error: {reason: 'Bad request.'}});
             });
@@ -100,7 +101,7 @@ var Controller = (app, dao) => {
                     res.json(comments.map(comment => comment.json()));
                 })
                 .catch((err) => {
-                    console.log(err)
+                    console.error(err)
                     res.status(400);
                     res.json({error: {reason: 'Bad request.'}});
                 });
@@ -120,7 +121,7 @@ var Controller = (app, dao) => {
                     res.json(comments);
                 })
                 .catch((err) => {
-                    console.log(err);
+                    console.error(err);
                     res.status(400);
                     res.json({error: {reason: 'Bad request.'}});
                 });
@@ -153,7 +154,7 @@ var Controller = (app, dao) => {
                 res.json(comments);
             })
             .catch((err) => {
-                console.log(err);
+                console.error(err);
                 res.status(400);
                 res.json({error: {reason: 'Bad request.'}});
             });
@@ -174,7 +175,8 @@ var Controller = (app, dao) => {
                 .then((comments) => {
                     res.json({status: 200});
                 })
-                .catch(() => {
+                .catch((err) => {
+                    console.error(err);
                     res.status(400);
                     res.json({error: {reason: 'Bad request.'}});
                 });
