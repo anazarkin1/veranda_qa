@@ -98,7 +98,13 @@ var Controller = (app, dao) => {
                 .then((validation) => (ConditionalPromise(validation.isEmpty())))
                 .then(() => (Models.Comment.getAllByThreadId(thread_id)))
                 .then((comments) => {
-                    res.json(comments.map(comment => comment.json()));
+                    res.json(
+                        {
+                            'comments': comments.map(comment => comment.json()),
+                            'count': comments.length,
+                            'thread_id': thread_id
+                        }
+                    );
                 })
                 .catch((err) => {
                     console.error(err)
