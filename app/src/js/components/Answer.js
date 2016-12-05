@@ -6,6 +6,8 @@ import axios from "axios";
 import classNames from "classnames";
 import RichEditor from "./RichEditor";
 
+import moment from 'moment';
+
 export default class Answer extends Component {
     constructor(props) {
         super(props);
@@ -71,16 +73,16 @@ export default class Answer extends Component {
                 <div className="createdby">
                     Created by: {this.props.created_by_name}
                 </div>
-                <br/><br/>
+                <br/>
                 <RichEditor
                     value={this.props.content}
                     readOnly={true}
                 />
                 <div className="timeposted">
-                    Time Posted: {this.convertUnixTime(this.props.created_at)}
+                    Time Posted: {moment.unix(this.props.created_at).fromNow()}
                 </div>
                 <div className="timemodified">
-                    Last Updated: {this.convertUnixTime(this.props.updated_at)}
+                    Last Updated: {moment.unix(this.props.updated_at).fromNow()}
                 </div>
                 <br/><br/>
                 <CommentsThread

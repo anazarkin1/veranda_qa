@@ -1,14 +1,21 @@
 /* Comment */
 
 .comments {
-  margin-top: 10px;
+  margin: 5px 5px 5px 5px;
   border: 1px solid $grey3;
   border-radius: 3px;
   background-color: $blue4;
+  font-size: 0.85em;
+  padding: 2px;
+  clear:both;
 
   .comment-list {
     display: flex;
     flex-direction: column;
+
+    max-height: 150px;
+    overflow-y: auto;
+
     .comment {
       margin: 3px;
       border-top: 1px solid $blue3;
@@ -65,5 +72,3 @@
     @extend .clearfix;
   }
 }
-
-

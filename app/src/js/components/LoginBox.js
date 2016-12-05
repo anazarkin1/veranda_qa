@@ -104,7 +104,7 @@ export default class LoginBox extends Component {
 							<div className='form-group'>
 								<label className='label'>Password:</label>
 								<div className='input'>
-									<input type='password' placeholder='*****' onChange={this.onPasswordChange} />
+									<input type='password' placeholder='*****' onChange={this.onPasswordChange} onKeyPress={this.onPasswordKP} />
 								</div>
 							</div>
 							<div className='form-group form-actions'>

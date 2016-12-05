@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import CommentsThread from "./comments/CommentsThread";
 import axios from "axios";
+import RichEditor from "./RichEditor";
 export default class Question extends Component {
     constructor() {
         super();
@@ -33,9 +34,11 @@ export default class Question extends Component {
     render() {
         return (
             <div className='question'>
-                <div>{this.props.id} : {this.state.question.title}</div>
-                <div>{this.state.question.content}</div>
-                <div>By: {this.state.question.created_by_name}</div>
+                <div className='title'>{this.props.id} : {this.state.question.title}</div>
+                <div className='content'>
+                    {this.state.question.content}
+                </div>
+                <div className='author'>By: {this.state.question.created_by_name || 'Anon.'}</div>
                 <CommentsThread
                     thread_id={this.props.id}
                 />

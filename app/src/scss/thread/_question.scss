@@ -1,14 +1,30 @@
 /* Question */
 
 .question {
-    border: 1px solid $grey1;
+    border: 1px solid transparent;
     border-radius: 4px;
-    margin: 10px 0 20px 0;
-    padding: 10px;
+    margin: 10px 0 30px 0;
+    padding: 0;
     background: #fff;
+    overflow: hidden;
+    @extend .clearfix;
 
-    > div:not(.comments) {
-        padding: 3px;
-        margin: 5px 10px;
+    > .title {
+        background: $black;
+        font-size: 1.3em;
+        padding: 10px 5px;
+        margin: 0;
+        color: #fff;
+    }
+
+    > .content {
+        padding: 15px;
+        margin: 15px 0;
+        clear: both;
+    }
+
+    > .author {
+        font-size: 0.9em;
+        float: right;
     }
 }
