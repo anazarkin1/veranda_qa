@@ -7,7 +7,8 @@ export default class LoginBox extends Component {
 
 		this.state = {
 			error: false,
-			errorMessage: ''
+			errorMessage: '',
+			loggedIn: false
 		};
 
 		this.value = {
@@ -29,7 +30,9 @@ export default class LoginBox extends Component {
 				password: this.value.password
 			}).then(resp => {
 				if (resp.status == 200) {
-					veranda.redirect('/createCourse');
+					this.setState({
+						loggedIn: true
+					})
 				}
 			}).catch(err => {
 				this.setState({
@@ -71,48 +74,74 @@ export default class LoginBox extends Component {
 
 
 	render() {
-		return (
-			<div className='login-box-container'>
-				<header
-					className='login-title'
-				>
-					Login
-				</header>
-				<div className='login-box'>
-					<div className='form'>
+		if (!this.state.loggedIn) {
+			return (
+				<div className='login-box-container'>
+					<header
+						className='login-title'
+					>
+						Login
+					</header>
+					<div className='login-box'>
+						<div className='form'>
 
-						{ this.state.error && (
-							<div className="form__error-wrapper">
-								<p className="form__error">
-									{this.state.errorMessage}
-								</p>
-							</div>
-						) }
+							{ this.state.error && (
+								<div className="form__error-wrapper">
+									<p className="form__error">
+										{this.state.errorMessage}
+									</p>
+								</div>
+							) }
 
-						<div className='form-group'>
-							<label className='label'>Email:</label>
-							<div className='input'>
-								<input type='email' placeholder='Email Address' onChange={this.onEmailChange} />
+							<div className='form-group'>
+								<label className='label'>Email:</label>
+								<div className='input'>
+									<input type='email' placeholder='Email Address' onChange={this.onEmailChange} />
+								</div>
 							</div>
-						</div>
-						<div className='form-group'>
-							<label className='label'>Password:</label>
-							<div className='input'>
-								<input type='password' placeholder='*****'  onChange={this.onPasswordChange} onKeyPress={this.onPasswordKP} />
+							<div className='form-group'>
+								<label className='label'>Password:</label>
+								<div className='input'>
+									<input type='password' placeholder='*****' onChange={this.onPasswordChange} />
+								</div>
 							</div>
-						</div>
-						<div className='form-group form-actions'>
-							<a className='link left'
-								onClick={() => veranda.redirect('/signup')}
-							>Sign Up</a>
-							<button
-								className='btn enter-button right'
-								onClick={this.login}
-							>Login</button>
+							<div className='form-group form-actions'>
+								<a className='link left'
+									onClick={() => veranda.redirect('/signup')}
+								>Sign Up</a>
+								<button
+									className='btn enter-button right'
+									onClick={this.login}
+								>Login</button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		);
+			);
+		}
+
+		else {
+			return (
+				<div className='login-box-container2'>
+					<header
+						className='login-title'
+					>
+						Welcome back
+					</header>
+					<div className='login-box2'>
+						<div className='form'>
+							<button
+								className='btn dashboard-button right'
+								onClick={() => veranda.redirect('/debug/course_dashboard')}
+							>Go to the Dashboard</button>
+							<button
+								className='btn createCourse-button right'
+								onClick={() => veranda.redirect('/createCourse')}
+							>Create a Course</button>
+						</div>
+					</div>
+				</div>
+			);
+		}
 	}
 }
