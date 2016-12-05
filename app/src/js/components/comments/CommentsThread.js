@@ -15,7 +15,7 @@ export default class CommentsThread extends Component {
         this.onPostSuccess = this.onPostSuccess.bind(this);
     }
 
-    componentDidMount() {
+    componentWillReceiveProps() {
         let url = '/comments?';
         if (this.props.answer_id) {
             url += 'answer_id=' + this.props.answer_id;
@@ -32,6 +32,7 @@ export default class CommentsThread extends Component {
             });
 
     }
+
 
     onPostSuccess(newPost) {
         //add newPost to the front comment list
