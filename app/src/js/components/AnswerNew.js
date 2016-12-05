@@ -55,6 +55,7 @@ export default class AnswerNew extends Component {
                 <RichEditor
                     onValueChanged={this.onValueChanged}
                     placeholder={this.state.placeholder}
+                    value={this.state.value}
                 />
                 <AnswerNewControls
                     onSubmit={this.onSubmit}
