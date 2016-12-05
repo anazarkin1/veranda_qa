@@ -21,7 +21,7 @@
     }
 
     .upvotebutton {
-
+        @extend .clickable;
       float : left;
       margin-left: 1%;
       margin-right: 1%;
