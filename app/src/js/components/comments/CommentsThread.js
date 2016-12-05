@@ -55,6 +55,7 @@ export default class CommentsThread extends Component {
                 <CommentNew
                     onPostSuccess={this.onPostSuccess}
                     thread_id={this.props.thread_id}
+                    answer_id={typeof this.props.answer_id !== 'undefined' ? this.props.answer_id : -1}
                 />
             </div>
         );

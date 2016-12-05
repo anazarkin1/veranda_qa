@@ -1,16 +1,32 @@
 /* Comment */
 
 .comments {
-  border: 1px solid $grey1;
+  margin-top: 10px;
+  border: 1px solid $grey3;
   border-radius: 3px;
+  background-color: $blue4;
 
   .comment-list {
     display: flex;
     flex-direction: column;
     .comment {
       margin: 3px;
-      border-top: 1px solid $blue4;
-      border-bottom: 1px solid $blue4;
+      border-top: 1px solid $blue3;
+      .createdby {
+        float: right;
+      }
+
+      &.hidden {
+        display: none;
+      }
+
+      .timeposted {
+        float: left;
+      }
+
+      .timemodified {
+        float: right;
+      }
     }
   }
   .comment-new {

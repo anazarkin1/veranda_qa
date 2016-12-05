@@ -17,6 +17,7 @@ export default class Comment extends Component {
             this.setState({
                 hideComment: true
             });
+
         }).catch(function (err) {
             console.log(err);
         });
@@ -28,13 +29,10 @@ export default class Comment extends Component {
                 <div className="createdby">
                     Created by: {this.props.created_by_name}
                 </div>
-                <br/><br/>
                 {this.props.content}
-                <br/><br/>
-                <br/><br/>
                 <ModerationTools
                     comment_id={this.props.comment_id}
-                    hideComment={this.deleteComment}
+                    hideAnswer={this.deleteComment}
                 />
             </div>
         );

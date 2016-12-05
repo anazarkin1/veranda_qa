@@ -50,6 +50,12 @@ export default class Answer extends Component {
         });
     }
 
+    convertUnixTime(unix_timestamp) {
+        let dateStr = new Date(unix_timestamp * 1000).toString();
+
+        return dateStr.substr(0, dateStr.length - 15);
+    }
+
     render() {
         return (
             <div className={classNames('answer', {hidden: this.state.hideAnswer})}>
@@ -68,10 +74,10 @@ export default class Answer extends Component {
                 {this.props.content}
                 <br/><br/>
                 <div className="timeposted">
-                    Time Posted: {this.props.created_at}
+                    Time Posted: {this.convertUnixTime(this.props.created_at)}
                 </div>
                 <div className="timemodified">
-                    Time Modified: {this.props.updated_at}
+                    Last Updated: {this.convertUnixTime(this.props.updated_at)}
                 </div>
                 <br/><br/>
                 <CommentsThread

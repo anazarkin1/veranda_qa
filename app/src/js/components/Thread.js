@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Question from "./Question";
-import AnswerWrapper from "./AnswersThread";
+import AnswersThread from "./AnswersThread";
 
 export default class Thread extends Component {
     constructor() {
@@ -12,8 +12,12 @@ export default class Thread extends Component {
     render() {
         return (
             <div className='thread'>
-                <Question id={this.props.id}/>
-                <AnswerWrapper thread_id={this.props.id}/>
+                <Question
+                    id={this.props.id}
+                />
+                <AnswersThread
+                    thread_id={this.props.id}
+                />
             </div>
         );
     }

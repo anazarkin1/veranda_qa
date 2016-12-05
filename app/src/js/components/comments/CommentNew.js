@@ -7,12 +7,14 @@ const InlineEditor = props => (
         className="comment-new-inline-editor"
         type="text"
         onChange={props.onChange}
+        placeholder={props.placeholder}
+        value={props.value}
     />
 );
 
 export default class CommentNew extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
 
         this.state = {
             value: "",
@@ -37,11 +39,15 @@ export default class CommentNew extends Component {
             thread_id: this.props.thread_id,
             content: this.state.value,
             is_anon: this.state.is_anon
-
         };
+        if (this.props.answer_id != -1) {
+            newComment.answer_id = this.props.answer_id
+        }
+        var self = this;
         axios.post('/comment', newComment)
             .then(function (response) {
-                this.props.onPostSuccess(response.data);
+                self.setState({value: ""});
+                self.props.onPostSuccess(response.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -53,6 +59,8 @@ export default class CommentNew extends Component {
             <div className='comment-new'>
                 <InlineEditor
                     onChange={this.onValueChanged}
+                    placeholder="Enter your comment"
+                    value={this.state.value}
                 />
                 <CommentNewControls
                     onSubmit={this.onSubmit}

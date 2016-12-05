@@ -311,7 +311,28 @@ var Controller = (app, dao) => {
     /*  Comment */
 
     app.get('/comments', (req, res) => {
-        if (Object.keys(req.query).includes("thread_id")) {
+        if (Object.keys(req.query).includes("answer_id")) {
+
+            let answer_id = parseInt(req.query.answer_id);
+
+            let promise = req.getValidationResult()
+                .then((validation) => (ConditionalPromise(validation.isEmpty())))
+                .then(() => (Models.Comment.getByAnswerId(answer_id)))
+                .then((comments) => {
+                    res.json(
+                        {
+                            'comments': comments.map(comment => comment.json()),
+                            'count': comments.length,
+                            'answer_id': answer_id
+                        }
+                    );
+                })
+                .catch((err) => {
+                    console.error(err)
+                    res.status(400);
+                    res.json({error: {reason: 'Bad request.'}});
+                });
+        } else if (Object.keys(req.query).includes("thread_id")) {
             let thread_id = parseInt(req.query.thread_id);
 
             let promise = req.getValidationResult()
@@ -332,27 +353,6 @@ var Controller = (app, dao) => {
                     res.json({error: {reason: 'Bad request.'}});
                 });
             return;
-        } else if (Object.keys(req.query).includes("answer_id")) {
-
-            let answer_id = parseInt(req.query.answer_id);
-
-            let promise = req.getValidationResult()
-                .then((validation) => (ConditionalPromise(validation.isEmpty())))
-                .then(() => (Models.Comment.getAllByThreadId(answer_id)))
-                .then((comments) => {
-                    res.json(
-                        {
-                            'comments': comments.map(comment => comment.json()),
-                            'count': comments.length,
-                            'answer_id': answer_id
-                        }
-                    );
-                })
-                .catch((err) => {
-                    console.error(err)
-                    res.status(400);
-                    res.json({error: {reason: 'Bad request.'}});
-                });
         } else {
             res.status(400);
             res.json({error: {reason: 'Bad request.'}});
@@ -388,7 +388,7 @@ var Controller = (app, dao) => {
 
         //answer_id is optional
         let answer_id = (Object.keys(req.body).includes("answer_id")) ? parseInt(req.body.answer_id) : null;
-        let created_by = parseInt(req.session.account_id);
+        let created_by = req.session.account_id;
 
         let comment = {
             thread_id: parseInt(req.body.thread_id),
