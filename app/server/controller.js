@@ -40,7 +40,7 @@ var Controller = (app, dao) => {
                 req.session.account_id = account.id;
                 req.session.name = account.name;
                 req.session.authenticated = true;
-                res.json({status: 200});
+                res.json({status: 200, user: req.session.account_id});
             })
             .catch(() => {
                 res.status(401);

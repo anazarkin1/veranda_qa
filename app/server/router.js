@@ -74,6 +74,10 @@ var Router = (app, dao) => {
       res.render('createCourse');
     });
 
+    app.get('/joinCourse', (req, res) => {
+      res.render('joinCourse');
+    });
+
 };
 
 module.exports = Router;

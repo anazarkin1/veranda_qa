@@ -4,6 +4,7 @@ import CommentsThread from "./comments/CommentsThread";
 import ModerationTools from "./ModerationTools";
 import axios from "axios";
 import classNames from "classnames";
+import RichEditor from "./RichEditor";
 
 export default class Answer extends Component {
     constructor(props) {
@@ -71,8 +72,10 @@ export default class Answer extends Component {
                     Created by: {this.props.created_by_name}
                 </div>
                 <br/><br/>
-                {this.props.content}
-                <br/><br/>
+                <RichEditor
+                    value={this.props.content}
+                    readOnly={true}
+                />
                 <div className="timeposted">
                     Time Posted: {this.convertUnixTime(this.props.created_at)}
                 </div>
