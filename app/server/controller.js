@@ -388,7 +388,7 @@ var Controller = (app, dao) => {
 
         //answer_id is optional
         let answer_id = (Object.keys(req.body).includes("answer_id")) ? parseInt(req.body.answer_id) : null;
-        let created_by = parseInt(req.session.account_id);
+        let created_by = req.session.account_id;
 
         let comment = {
             thread_id: parseInt(req.body.thread_id),
