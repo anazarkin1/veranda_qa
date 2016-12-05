@@ -216,6 +216,9 @@ var Controller = (app, dao) => {
             .then((course) => {
                 res.json(course.json());
             })
+            .then(() => {
+                res.json({status: 200});
+            })
             .catch(() => {
                 res.status(400);
                 res.json({error: {reason: 'Bad request.'}});

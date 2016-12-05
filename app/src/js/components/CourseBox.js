@@ -90,7 +90,7 @@ export default class CourseBox extends Component {
 	}
 
   goBack() {
-    this.seetState({
+    this.setState({
       loggedIn: true
     });
     veranda.redirect('/login');
