@@ -121,12 +121,6 @@ export default class CourseBox extends Component {
 								<input type='text' placeholder='CSC309'  onChange={this.onCourseIdChange} />
 							</div>
 						</div>
-						<div className='form-group'>
-							<label className='label'>Creater:</label>
-							<div className='input'>
-								<input type='text' placeholder='Karen Reid'  onChange={this.onCreaterChange} />
-							</div>
-						</div>
             <div className='form-group'>
               <label className='label'>CourseName:</label>
               <div className='input'>
