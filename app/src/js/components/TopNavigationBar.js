@@ -74,7 +74,7 @@ export default class TopNavigationBar extends Component {
 					<h1
 						title={this.state.courseTitle}
 						onClick={() => veranda.redirect('/')}
-					>{this.state.activeCourse && (this.state.courses[this.state.activeCourse].name)}</h1>
+					>{this.state.activeCourse ? (this.state.courses.filter(c => (c.id == this.state.activeCourse)))[0].name : 'Veranda'}</h1>
 					<NavigationButtonIcon
 						icon='fa-gear'
 						hoverIcon='fa-gear fa-spin'

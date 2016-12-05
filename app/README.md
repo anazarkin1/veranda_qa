@@ -1,5 +1,19 @@
 # Veranda Technical Documentation
 
+## For TA:
+
+It's not currently hosted anywhere, although the database is hosted on a private server. The database credentials are set up in a "constants" file. As long as you have an internet connection, you can connect.
+
+Just `npm install`, then `npm run build`, then `npm start`.
+
+Click Login, and then type the credentials:
+
+Test Account:
+```
+email: johnsmith@example.com
+password: test
+```
+
 ## Development Environment
 
 To install:
