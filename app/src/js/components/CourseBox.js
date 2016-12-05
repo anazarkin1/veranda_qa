@@ -20,8 +20,6 @@ export default class CourseBox extends Component {
 		};
 
 		this.createCourse = this.createCourse.bind(this);
-		this.onCourseIdChange = this.onCourseIdChange.bind(this);
-		this.onCreaterChange = this.onCreaterChange.bind(this);
 		this.onCourseNameChange = this.onCourseNameChange.bind(this);
 		this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.onStartDateChange = this.onStartDateChange.bind(this);
@@ -29,22 +27,18 @@ export default class CourseBox extends Component {
 	}
 
 	createCourse() {
-		if (this.value.courseId.length > 0
-        && this.value.creater.length > 0
-        && this.value.courseName.length > 0
+		if (this.value.courseName.length > 0
         && this.value.description.length > 0
         && this.value.startDate.length > 0
         && this.value.finishDate.length > 0) {
 			axios.post('/course', {
-				course_id: this.value.courseId,
-				creater: this.value.creater,
         name: this.value.courseName,
         description: this.value.description,
         start_date: this.value.startDate,
         finish_date: this.value.finishDate
 			}).then(resp => {
 				if (resp.status == 200) {
-					veranda.redirect('/course_dashboard');
+					veranda.redirect('/login');
 				}
 			}).catch(err => {
 				this.setState({
@@ -60,15 +54,6 @@ export default class CourseBox extends Component {
 		}
 	}
 
-	onCourseIdChange(e) {
-		this.value.courseId = e.target.value;
-		this.clearError();
-	}
-
-	onCreaterChange(e) {
-		this.value.creater = e.target.value;
-		this.clearError();
-	}
 
   onCourseNameChange(e) {
 		this.value.courseName = e.target.value;
@@ -115,16 +100,10 @@ export default class CourseBox extends Component {
 				</header>
 				<div className='course-box'>
 					<div className='form'>
-						<div className='form-group'>
-							<label className='label'>Id:</label>
-							<div className='input'>
-								<input type='text' placeholder='CSC309'  onChange={this.onCourseIdChange} />
-							</div>
-						</div>
             <div className='form-group'>
               <label className='label'>CourseName:</label>
               <div className='input'>
-                <input type='text' placeholder='Programming on the Web'  onChange={this.onCourseNameChange} />
+                <input type='text' placeholder='CSC309'  onChange={this.onCourseNameChange} />
               </div>
             </div>
             <div className='form-group'>

@@ -8,7 +8,8 @@ export default class LoginBox extends Component {
 		this.state = {
 			error: false,
 			errorMessage: '',
-			loggedIn: false
+			loggedIn: false,
+			user: ''
 		};
 
 		this.value = {
@@ -31,8 +32,9 @@ export default class LoginBox extends Component {
 			}).then(resp => {
 				if (resp.status == 200) {
 					this.setState({
-						loggedIn: true
-					})
+						loggedIn: true,
+						user: resp.user
+					});
 				}
 			}).catch(err => {
 				this.setState({
@@ -126,7 +128,7 @@ export default class LoginBox extends Component {
 					<header
 						className='login-title'
 					>
-						Welcome back
+						Welcome back, {this.state.user} !
 					</header>
 					<div className='login-box2'>
 						<div className='form'>
