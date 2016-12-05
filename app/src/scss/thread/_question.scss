@@ -2,6 +2,13 @@
 
 .question {
     border: 1px solid $grey1;
-    border-radius: 3px;
+    border-radius: 4px;
     margin: 10px 0 20px 0;
+    padding: 10px;
+    background: #fff;
+
+    > div:not(.comments) {
+        padding: 3px;
+        margin: 5px 10px;
+    }
 }
