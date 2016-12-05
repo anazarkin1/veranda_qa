@@ -24,6 +24,7 @@ export default class CourseBox extends Component {
 		this.onDescriptionChange = this.onDescriptionChange.bind(this);
     this.onStartDateChange = this.onStartDateChange.bind(this);
     this.onFinishDateChange = this.onFinishDateChange.bind(this);
+    this.goBack = this.goBack.bind(this);
 	}
 
 	createCourse() {
@@ -88,6 +89,12 @@ export default class CourseBox extends Component {
 		}
 	}
 
+  goBack() {
+    this.seetState({
+      loggedIn: true
+    });
+    veranda.redirect('/login');
+  }
 
 
 	render() {
@@ -130,6 +137,11 @@ export default class CourseBox extends Component {
 								className='btn enter-button right'
 								onClick={this.createCourse}
 							>Create</button>
+
+              <button
+								className='btn enter-button left'
+								onClick={this.goBack}
+							>Back</button>
 						</div>
 					</div>
 				</div>

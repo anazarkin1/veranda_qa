@@ -33,7 +33,6 @@ export default class SignupBox extends Component {
 	}
 
 	signup() {
-		alert('hi' + this.state.mode);
 		if (this.state.mode == 'student') {
 			if (this.value.email && this.value.password && this.value.name) {
 				axios.post('/account', {

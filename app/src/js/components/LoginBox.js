@@ -128,7 +128,7 @@ export default class LoginBox extends Component {
 					<header
 						className='login-title'
 					>
-						Welcome back, {this.state.user} !
+						Welcome back  {this.state.user} !
 					</header>
 					<div className='login-box2'>
 						<div className='form'>

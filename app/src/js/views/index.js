@@ -31,7 +31,7 @@ class Homepage extends Component {
 								</header>
 								<div className='student-box'>
 									<div className='form'>
-
+									
 									</div>
 								</div>
 							</div>
