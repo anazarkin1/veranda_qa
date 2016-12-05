@@ -11,7 +11,6 @@ var models = (dao) => (
         Vote: require('./models/vote')(dao),
         Thread: require('./models/thread')(dao),
         Comment: require('./models/comment')(dao)
-
     }
 );
 

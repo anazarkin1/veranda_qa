@@ -188,7 +188,7 @@ var Controller = (app, dao) => {
 
         let promise = req.getValidationResult()
             .then((validation) => (ConditionalPromise(validation.isEmpty())))
-            .then(() => (Models.Thread.getByThread(req.query.course_id, req.session.account_id)))
+            .then(() => (Models.Thread.getByCourse(req.query.course_id, req.session.account_id)))
             .then((threads) => {
                 let mappedThreads = threads.map(thread => thread.json());
                 res.json({

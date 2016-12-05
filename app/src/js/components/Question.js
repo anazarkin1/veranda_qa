@@ -9,6 +9,10 @@ export default class Question extends Component {
     }
 
     componentDidMount() {
+        this.updateQuestion();
+    }
+
+    updateQuestion() {
         axios.get('/thread?thread_id=' + this.props.id)
             .then(resp => {
                 this.setState({question: resp.data});
@@ -17,6 +21,12 @@ export default class Question extends Component {
                 console.log(error);
             });
 
+    }
+
+    componentWillReceiveProps(next) {
+        if (next.id !== this.props.id) {
+            this.updateQuestion();
+        }
     }
 
 

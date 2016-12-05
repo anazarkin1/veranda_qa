@@ -16,6 +16,16 @@ export default class AnswersThread extends Component {
     }
 
     componentDidMount() {
+        this.updateAnswers();
+    }
+
+    componentWillReceiveProps(next) {
+        if (next.thread_id !== this.props.thread_id) {
+            this.updateAnswers();
+        }
+    }
+
+    updateAnswers() {
         axios.get('/answers?thread_id=' + this.props.thread_id)
             .then(resp => {
                 this.setState({answers: resp.data.answers});

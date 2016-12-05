@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
 import moment from 'moment';
+import axios from 'axios';
 
 const QuestionListItem = props => (
 	<div
@@ -23,12 +24,23 @@ export default class QuestionListNavigation extends Component {
 	}
 
 	componentDidMount() {
-		// TODO: Replace Dummy data.
-		this.setState({ threads: [
-			{ id: 1, created_at: ((+new Date())/1000) - 1000, title: "What is a question?" },
-			{ id: 2, created_at: ((+new Date())/1000) - 5000, title: "How can you see in the dark?" },
-			{ id: 3, created_at: ((+new Date())/1000) - 10000, title: "What is the meaning of life?" }
-		] });
+		if (!this.props.course_id) return;
+
+		axios.get('/threads', {
+			params: {
+				course_id: this.props.course_id
+			}
+		}).then(resp => {
+			this.setState({
+				threads: resp.data.threads.map(t => ({
+					id: t.thread_id,
+					created_at: t.created_at,
+					title: `Thread: ${t.thread_id}`
+				}))
+			});
+		}).catch(err => {
+
+		});
 	}
 
 	onItemClick(threadId) {

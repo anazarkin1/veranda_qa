@@ -7,8 +7,14 @@ class CourseDashboard extends Component {
     constructor() {
         super();
 
+        let course = window.location.href.match("[0-9]+$");
+        if (course && course.length > 0) {
+            course = parseInt(course[0]);
+        }
+
         this.state = {
-            activeThread: 1
+            activeThread: 1,
+            activeCourse: course || false
         };
 
         this.changeThread = this.changeThread.bind(this);
@@ -27,6 +33,7 @@ class CourseDashboard extends Component {
                     <QuestionListNavigation
                         onItemClick={this.changeThread}
                         activeThread={this.state.activeThread}
+                        course_id={this.state.activeCourse}
                     />
                 </div>
                 <div className='right'>

@@ -14,9 +14,11 @@ export default class Thread extends Component {
             <div className='thread'>
                 <Question
                     id={this.props.id}
+                    question={this.props.question}
                 />
                 <AnswersThread
                     thread_id={this.props.id}
+                    answers={this.props.answers}
                 />
             </div>
         );

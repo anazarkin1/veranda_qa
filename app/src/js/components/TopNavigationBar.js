@@ -6,14 +6,18 @@ import Drawer from './Drawer';
 
 import { NavigationButton, NavigationButtonIcon } from './NavigationControls';
 
+import axios from 'axios';
+
 export default class TopNavigationBar extends Component {
 	constructor() {
 		super();
 
 		this.state = {
-			courseTitle: 'CSC309: Programming on the Web',
+			courseTitle: 'Veranda',
 			drawerOpen: false,
-			loggedIn: true
+			loggedIn: !!window.location.href.match("/dashboard|create/"),
+			activeCourse: false,
+			courses: []
 		};
 
 		this.toggleDrawer = this.toggleDrawer.bind(this);
@@ -21,27 +25,46 @@ export default class TopNavigationBar extends Component {
 		this.login = this.login.bind(this);
 	}
 
+	componentDidMount() {
+		if (!window.location.href.match("/dashboard/")) return;
+
+		axios.get('/courses').then(resp => {
+			this.setState({
+				courses: resp.data.courses.map(t => ({
+					id: t.course_id,
+					name: t.name
+				}))
+			}, () => {
+				let course = window.location.href.match("[0-9]+$");
+		        if (course && course.length > 0) {
+		            course = parseInt(course[0]);
+		            this.setState({
+		                activeCourse: course
+		            });
+		        }
+			});
+		}).catch(err => {
+
+		});
+	}
+
 	toggleDrawer() {
 		this.setState({ drawerOpen: !this.state.drawerOpen });
 	}
 
 	logout() {
-		this.setState({
-			loggedIn: false
-		});
+		veranda.redirect('/logout');
 	}
 
 	login() {
-		this.setState({
-			loggedIn: true
-		});
+		veranda.redirect('/login');
 	}
 
 	render() {
 		if (this.state.loggedIn) {
 			return (
 				<header className='top-navigation-bar'>
-					<Drawer />
+					<Drawer courses={this.state.courses} />
 					<NavigationButtonIcon
 	                    icon='fa-sign-out'
 	                    title='Logout'
@@ -51,7 +74,7 @@ export default class TopNavigationBar extends Component {
 					<h1
 						title={this.state.courseTitle}
 						onClick={() => veranda.redirect('/')}
-					>{this.state.courseTitle}</h1>
+					>{this.state.activeCourse && (this.state.courses[this.state.activeCourse].name)}</h1>
 					<NavigationButtonIcon
 						icon='fa-gear'
 						hoverIcon='fa-gear fa-spin'

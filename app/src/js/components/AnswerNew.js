@@ -11,7 +11,7 @@ export default class AnswerNew extends Component {
         this.state = {
             value: "",
             is_anon: false,
-            placeholder: "Entere your answer"
+            placeholder: "Enter your answer"
         };
         this.onValueChanged = this.onValueChanged.bind(this);
         this.onCancel = this.onCancel.bind(this);

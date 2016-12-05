@@ -38,9 +38,12 @@ export default class Drawer extends Component {
                 />
                 <div className={classNames('drawer', { open: this.state.open })}>
                     <ul>
-                        <li>CSC309: Programming on the Web</li>
-                        <li>MGN401: Advanced Wizardry</li>
-                        <li>HOG105: Intro to Muggle Studies</li>
+                        {this.props.courses.map(c => (
+							<li
+								key={c.id}
+								onClick={() => {veranda.redirect('/dashboard/'+c.id);}}
+							>{c.name}</li>
+						))}
                     </ul>
                 </div>
             </div>
