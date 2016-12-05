@@ -134,7 +134,7 @@ export default class LoginBox extends Component {
 						<div className='form'>
 							<button
 								className='btn dashboard-button right'
-								onClick={() => veranda.redirect('/debug/course_dashboard')}
+								onClick={() => veranda.redirect('/dashboard')}
 							>Go to the Dashboard</button>
 							<button
 								className='btn createCourse-button right'
