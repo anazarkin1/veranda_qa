@@ -1,6 +1,8 @@
-# Veranda Technical Documentation
+# Veranda
 
-## For TA:
+A description for every aspect of our application is contained within the aspect's GitHub issue. All features which have not been implemented, our outstanding / open issues in GitHub.
+
+Issues/Design: https://github.com/CSC309-Fall-2016/group12/issues
 
 It's not currently hosted anywhere, although the database is hosted on a private server. The database credentials are set up in a "constants" file. As long as you have an internet connection, you can connect.
 
@@ -13,6 +15,8 @@ Test Account:
 email: johnsmith@example.com
 password: test
 ```
+
+# Veranda Technical Documentation
 
 ## Development Environment
 
